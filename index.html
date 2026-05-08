@@ -27,37 +27,55 @@
             height: 140px;
             border-radius: 50%;
             border: 4px solid #f59e0b;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
             object-fit: cover;
         }
 
         h1 { margin: 15px 0 5px; font-size: 26px; }
         .subtitle { color: #94a3b8; font-size: 15px; margin-bottom: 10px; }
 
-        /* ঈদ শুভেচ্ছা সেকশন */
+        /* ইউনিক ঈদ শুভেচ্ছা স্টাইল */
         .eid-wish {
-            background: linear-gradient(145deg, #1e293b, #0f172a);
-            padding: 15px;
+            background: rgba(30, 41, 59, 0.5);
+            padding: 20px;
             border-radius: 20px;
             text-align: center;
             margin: 20px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px dashed #f59e0b;
         }
+
         .eid-text {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
-            color: #ff4757;
-            animation: glow 1.5s ease-in-out infinite alternate;
+            /* ইউনিক গোল্ডেন গ্রাডিয়েন্ট কালার */
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #ff4500, #ffd700);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
             margin: 0;
         }
-        .cow-emoji { font-size: 30px; display: block; margin: 10px 0; }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 5px #ff4757, 0 0 10px #ff4757; }
-            to { text-shadow: 0 0 15px #ff6b81, 0 0 25px #ff6b81; }
+        .eid-subtext {
+            color: #00d2ff;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 10px;
+            display: block;
         }
 
-        /* স্মার্ট সোশ্যাল আইকন স্টাইল */
+        .animal-emoji {
+            font-size: 35px;
+            display: block;
+            margin: 10px 0;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* সোশ্যাল কার্ড */
         .card {
             background-color: #1e293b;
             width: 90%;
@@ -96,10 +114,8 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* আইকন হোভার কালার */
         .social-item:hover .icon-circle {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.1);
         }
 
         .facebook:hover .icon-circle { color: #1877F2; border-color: #1877F2; box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3); }
@@ -107,13 +123,8 @@
         .instagram:hover .icon-circle { color: #E4405F; border-color: #E4405F; box-shadow: 0 5px 15px rgba(228, 64, 95, 0.3); }
         .telegram:hover .icon-circle { color: #0088cc; border-color: #0088cc; box-shadow: 0 5px 15px rgba(0, 136, 204, 0.3); }
 
-        .social-item span {
-            font-size: 11px;
-            margin-top: 8px;
-            color: #94a3b8;
-        }
+        .social-item span { font-size: 11px; margin-top: 8px; color: #94a3b8; }
 
-        /* নোট সেকশন */
         .note-box {
             background: rgba(15, 23, 42, 0.5);
             padding: 12px;
@@ -127,15 +138,15 @@
 <body>
 
     <div class="profile-container">
-        <img src="11250.png" alt="Profile" class="profile-img">
+        <img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="Profile" class="profile-img">
         <h1>মোঃ আব্দুল বাকি মিয়া</h1>
         <p class="subtitle">আমার ব্যক্তিগত পেজ</p>
     </div>
 
     <div class="eid-wish">
         <p class="eid-text">ঈদ মোবারক! 🌙</p>
-        <span class="cow-emoji">🐂 🐄 ✨</span>
-        <p style="color: #2ed573; font-size: 14px; font-weight: 500;">পবিত্র ঈদুল আযহার শুভেচ্ছা!</p>
+        <span class="animal-emoji">🐪 🐫 🐃 🐃</span>
+        <span class="eid-subtext">পবিত্র ঈদুল আযহার অগ্রিম শুভেচ্ছা! ✨</span>
     </div>
 
     <div class="card">
