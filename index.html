@@ -107,26 +107,45 @@
 
         @keyframes shine { to { background-position: 200% center; } }
 
-        /* About Me সেকশন (নতুন যোগ করা হয়েছে) */
-        .about-section h2 {
+        /* About Me ও Bio সেকশন */
+        .about-section h2, .bio-section h2, .offline-section h2 {
             font-size: 18px;
             margin-top: 0;
             display: flex;
             align-items: center;
             gap: 10px;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .about-content {
+        .content-text {
             color: #cbd5e1;
             font-size: 14px;
             line-height: 1.6;
             margin: 0;
-            text-transform: uppercase; /* আপনার ছবির স্টাইল অনুযায়ী */
         }
 
-        /* যোগাযোগ ও গ্রিড */
+        /* অফলাইন কল বাটন */
+        .call-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #f59e0b;
+            color: #0f172a;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .call-button:hover {
+            background: #fbbf24;
+            transform: scale(1.02);
+        }
+
+        /* সোশ্যাল গ্রিড */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -189,8 +208,15 @@
 
     <div class="card about-section">
         <h2>ABOUT ME <i class="fas fa-user-circle" style="color: #3b82f6;"></i></h2>
-        <p class="about-content">
+        <p class="content-text" style="text-transform: uppercase;">
             I AM MD. ABDUL BAKI MIA, AN ELECTRICAL ENGINEERING STUDENT WITH A PASSION FOR TECHNOLOGY.
+        </p>
+    </div>
+
+    <div class="card bio-section">
+        <h2>BIO <i class="fas fa-pen-nib" style="color: #10b981;"></i></h2>
+        <p class="content-text">
+            শীঘ্রই আপডেট লেখা হবে৷ ♻️
         </p>
     </div>
 
@@ -214,6 +240,14 @@
                 <span>Telegram</span>
             </a>
         </div>
+    </div>
+
+    <div class="card offline-section">
+        <h2>অফলাইন যোগাযোগ <i class="fas fa-phone-alt" style="color: #f59e0b;"></i></h2>
+        <p class="content-text"> সরাসরি কল করুন 📳</p>
+        <a href="tel:01575586681" class="call-button">
+            <i class="fas fa-phone-volume"></i> 01575586681
+        </a>
     </div>
 
     <div class="card">
