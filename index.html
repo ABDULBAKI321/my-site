@@ -17,7 +17,7 @@
             padding: 20px;
         }
 
-        /* প্রোফাইল সেকশন - নতুন ডিজাইন (স্কেচ অনুযায়ী) */
+        /* প্রোফাইল হেড সেকশন */
         .header-section {
             display: flex;
             align-items: center;
@@ -29,7 +29,6 @@
 
         .profile-img-container {
             cursor: pointer;
-            transition: transform 0.3s ease;
         }
 
         .profile-img {
@@ -53,7 +52,7 @@
             margin: 5px 0 0;
         }
 
-        /* ইমেজ জুম অ্যানিমেশন (Lightbox) */
+        /* ইমেজ জুম ওভারলে */
         .overlay {
             position: fixed;
             top: 0;
@@ -65,7 +64,6 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            animation: fadeIn 0.3s ease;
         }
 
         .overlay img {
@@ -73,14 +71,12 @@
             max-height: 85%;
             border-radius: 15px;
             border: 2px solid #f59e0b;
-            transform: scale(0.5);
-            animation: zoomIn 0.4s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: zoomIn 0.3s ease;
         }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes zoomIn { to { transform: scale(1); } }
+        @keyframes zoomIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* ঈদ শুভেচ্ছা ও অন্যান্য কার্ড */
+        /* কার্ড স্টাইল */
         .card {
             background-color: #1e293b;
             width: 90%;
@@ -92,6 +88,7 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
+        /* ঈদ শুভেচ্ছা */
         .eid-wish {
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
             border: 1px dashed #f59e0b;
@@ -110,6 +107,26 @@
 
         @keyframes shine { to { background-position: 200% center; } }
 
+        /* About Me সেকশন (নতুন যোগ করা হয়েছে) */
+        .about-section h2 {
+            font-size: 18px;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-content {
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+            text-transform: uppercase; /* আপনার ছবির স্টাইল অনুযায়ী */
+        }
+
+        /* যোগাযোগ ও গ্রিড */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -122,7 +139,6 @@
             flex-direction: column;
             align-items: center;
             text-decoration: none;
-            transition: 0.3s;
         }
 
         .icon-circle {
@@ -137,7 +153,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .social-item:hover .icon-circle { transform: translateY(-5px); border-color: #f59e0b; }
         .social-item span { font-size: 10px; margin-top: 8px; color: #94a3b8; }
 
         .note-box {
@@ -170,6 +185,13 @@
         <p class="eid-text">ঈদ মোবারক! 🌙</p>
         <div style="font-size: 30px; margin: 10px 0;">🐪 🐃</div>
         <p style="color: #00d2ff; font-size: 14px; margin: 0;">পবিত্র ঈদুল আযহার অগ্রিম শুভেচ্ছা! ✨</p>
+    </div>
+
+    <div class="card about-section">
+        <h2>ABOUT ME <i class="fas fa-user-circle" style="color: #3b82f6;"></i></h2>
+        <p class="about-content">
+            I AM MD. ABDUL BAKI MIA, AN ELECTRICAL ENGINEERING STUDENT WITH A PASSION FOR TECHNOLOGY.
+        </p>
     </div>
 
     <div class="card">
