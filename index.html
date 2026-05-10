@@ -22,14 +22,14 @@ body{
     color:white;
     display:flex;
     justify-content:center;
-    padding:20px;
+    padding:18px;
 }
 
 /* CONTAINER */
 
 .container{
     width:100%;
-    max-width:900px;
+    max-width:850px;
 }
 
 /* HEADER */
@@ -37,18 +37,18 @@ body{
 .header-section{
     display:flex;
     align-items:center;
-    gap:22px;
-    margin-top:30px;
-    flex-wrap:wrap;
+    gap:18px;
+    margin-top:25px;
 }
 
 .profile-img-container{
     cursor:pointer;
+    flex-shrink:0;
 }
 
 .profile-img{
-    width:115px;
-    height:115px;
+    width:105px;
+    height:105px;
     border-radius:50%;
     object-fit:cover;
     border:3px solid #f59e0b;
@@ -60,87 +60,113 @@ body{
     transform:scale(1.03);
 }
 
+.name-info{
+    flex:1;
+}
+
 .name-info h1{
-    font-size:32px;
+    font-size:30px;
     margin-bottom:5px;
 }
 
 .subtitle{
     color:#94a3b8;
-    font-size:15px;
-    margin-bottom:14px;
+    font-size:14px;
+    margin-bottom:12px;
 }
 
 /* CLOCK */
 
 .clock-box{
-    display:inline-block;
+
+    display:inline-flex;
+    align-items:center;
+    gap:15px;
+
     background:#1e293b;
+
     padding:10px 18px;
+
     border-radius:14px;
+
     border:1px solid rgba(255,255,255,0.08);
+
     box-shadow:0 0 15px rgba(0,0,0,0.2);
-    text-align:center;
+
 }
 
 #digital-clock{
     color:#f59e0b;
-    font-size:21px;
+    font-size:20px;
     font-weight:bold;
     letter-spacing:2px;
 }
 
 #day-name{
-    color:#94a3b8;
-    font-size:13px;
-    margin-top:6px;
-    letter-spacing:1px;
+    color:#cbd5e1;
+    font-size:14px;
 }
 
 /* CARD */
 
 .card{
     background:#1e293b;
+
     width:100%;
-    padding:25px;
+
+    padding:24px;
+
     border-radius:24px;
+
     margin-top:22px;
+
     box-shadow:0 10px 25px rgba(0,0,0,0.25);
+
     border:1px solid rgba(255,255,255,0.05);
 }
 
 /* EID CARD */
 
 .eid-wish{
+
     background:linear-gradient(
-        135deg,
-        rgba(30,41,59,0.9),
-        rgba(15,23,42,0.95)
-    );
+    135deg,
+    rgba(30,41,59,0.9),
+    rgba(15,23,42,0.95));
+
     border:1px dashed #f59e0b;
+
     text-align:center;
 }
 
 .eid-text{
+
     font-size:34px;
+
     font-weight:bold;
+
     background:linear-gradient(
-        45deg,
-        #ffd700,
-        #ff8c00,
-        #ff4500,
-        #ffd700
-    );
+    45deg,
+    #ffd700,
+    #ff8c00,
+    #ff4500,
+    #ffd700);
+
     background-size:200% auto;
+
     -webkit-background-clip:text;
+
     -webkit-text-fill-color:transparent;
+
     animation:shine 3s linear infinite;
 }
 
 @keyframes shine{
+
     to{
         background-position:200% center;
     }
+
 }
 
 /* SECTION TITLE */
@@ -148,121 +174,192 @@ body{
 .about-section h2,
 .bio-section h2,
 .offline-section h2{
+
     font-size:22px;
+
     margin-bottom:15px;
+
     display:flex;
+
     align-items:center;
+
     gap:10px;
 }
 
 /* TEXT */
 
 .content-text{
+
     color:#cbd5e1;
+
     line-height:1.8;
+
     font-size:16px;
 }
 
 /* SOCIAL */
 
 .social-grid{
+
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-    gap:20px;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:14px;
+
     margin-top:20px;
+
+    text-align:center;
 }
 
 .social-item{
+
     text-decoration:none;
+
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
 }
 
 .icon-circle{
-    width:65px;
-    height:65px;
-    border-radius:16px;
+
+    width:62px;
+    height:62px;
+
+    border-radius:18px;
+
     background:rgba(255,255,255,0.05);
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-size:28px;
+
     border:1px solid rgba(255,255,255,0.1);
+
     transition:0.3s;
 }
 
 .icon-circle:hover{
-    transform:translateY(-5px);
+    transform:translateY(-4px);
 }
 
 .social-item span{
+
     margin-top:10px;
+
     color:#94a3b8;
-    font-size:14px;
+
+    font-size:13px;
 }
 
 /* CALL BUTTON */
 
 .call-button{
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
-    gap:10px;
-    background:#f59e0b;
-    color:#0f172a;
+
+    gap:12px;
+
+    background:linear-gradient(
+    90deg,
+    #06b6d4,
+    #22c55e
+    );
+
+    color:white;
+
     text-decoration:none;
-    padding:15px;
-    border-radius:14px;
+
+    padding:16px;
+
+    border-radius:16px;
+
     font-weight:bold;
+
     margin-top:18px;
-    transition:0.3s;
-    font-size:20px;
+
+    transition:0.35s;
+
+    font-size:22px;
+
+    box-shadow:0 0 20px rgba(34,197,94,0.20);
 }
 
 .call-button:hover{
-    background:#ffbf3f;
-    transform:scale(1.02);
+
+    transform:translateY(-2px);
+
+    box-shadow:0 0 25px rgba(6,182,212,0.35);
 }
 
 /* NOTE */
 
 .note-box{
+
     background:rgba(15,23,42,0.5);
+
     padding:14px;
-    border-left:4px solid #f59e0b;
+
+    border-left:4px solid #22c55e;
+
     border-radius:8px;
+
     margin-bottom:12px;
 }
 
-/* IMAGE OVERLAY */
+/* OVERLAY */
 
 .overlay{
+
     position:fixed;
+
     top:0;
     left:0;
+
     width:100%;
     height:100%;
+
     background:rgba(0,0,0,0.9);
+
     display:none;
+
     justify-content:center;
+
     align-items:center;
+
     z-index:1000;
 }
 
 .overlay img{
+
     max-width:85%;
+
     max-height:85%;
+
     border-radius:15px;
+
     border:2px solid #f59e0b;
+
     animation:zoomIn 0.3s ease;
 }
 
 @keyframes zoomIn{
+
     from{
         transform:scale(0.7);
         opacity:0;
     }
+
     to{
         transform:scale(1);
         opacity:1;
@@ -274,16 +371,38 @@ body{
 @media(max-width:700px){
 
     .header-section{
-        flex-direction:column;
-        text-align:center;
+        align-items:center;
+    }
+
+    .profile-img{
+        width:92px;
+        height:92px;
     }
 
     .name-info h1{
-        font-size:26px;
+        font-size:22px;
+    }
+
+    .subtitle{
+        font-size:13px;
+    }
+
+    .clock-box{
+        padding:8px 12px;
+        gap:10px;
+    }
+
+    #digital-clock{
+        font-size:16px;
+    }
+
+    #day-name{
+        font-size:12px;
     }
 
     .card{
-        padding:20px;
+        padding:18px;
+        border-radius:22px;
     }
 
     .eid-text{
@@ -291,7 +410,22 @@ body{
     }
 
     .social-grid{
-        grid-template-columns:repeat(2,1fr);
+        gap:8px;
+    }
+
+    .icon-circle{
+        width:55px;
+        height:55px;
+        font-size:24px;
+    }
+
+    .social-item span{
+        font-size:11px;
+    }
+
+    .call-button{
+        font-size:18px;
+        padding:14px;
     }
 
 }
@@ -310,6 +444,7 @@ body{
 <div class="profile-img-container" onclick="openImage()">
 
 <img src="VIP_Temp_File_image_repair_1776952696308.jpg"
+alt="Profile"
 class="profile-img">
 
 </div>
@@ -320,7 +455,7 @@ class="profile-img">
 
 <p class="subtitle">ব্যক্তিগত পেজ</p>
 
-<!-- DIGITAL CLOCK -->
+<!-- CLOCK -->
 
 <div class="clock-box">
 
@@ -338,11 +473,12 @@ class="profile-img">
 
 <div class="overlay" id="imageOverlay" onclick="closeImage()">
 
-<img src="VIP_Temp_File_image_repair_1776952696308.jpg">
+<img src="VIP_Temp_File_image_repair_1776952696308.jpg"
+alt="Full Image">
 
 </div>
 
-<!-- EID WISH -->
+<!-- EID -->
 
 <div class="card eid-wish">
 
@@ -352,7 +488,7 @@ class="profile-img">
 🐪 🐃
 </div>
 
-<p style="color:#00d2ff;">
+<p style="color:#00d2ff;font-size:15px;">
 পবিত্র ঈদুল আযহার অগ্রিম শুভেচ্ছা! ✨
 </p>
 
@@ -394,7 +530,7 @@ BIO
 
 <div class="card">
 
-<h2 style="text-align:center;">
+<h2 style="text-align:center;font-size:22px;">
 যোগাযোগ করুন 🤝
 </h2>
 
@@ -452,13 +588,13 @@ class="social-item">
 
 </div>
 
-<!-- OFFLINE CONTACT -->
+<!-- OFFLINE -->
 
 <div class="card offline-section">
 
 <h2>
 অফলাইন যোগাযোগ
-<i class="fas fa-phone-alt" style="color:#f59e0b;"></i>
+<i class="fas fa-phone-alt" style="color:#22c55e;"></i>
 </h2>
 
 <p class="content-text">
@@ -484,11 +620,11 @@ class="social-item">
 </h2>
 
 <div class="note-box">
-এটা আমার তৈরি করা একটি সাইট 😊
+⭐ এটা আমার তৈরি করা একটি সাইট 😊
 </div>
 
 <div class="note-box">
-মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷
+⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷
 </div>
 
 </div>
@@ -497,15 +633,13 @@ class="social-item">
 
 <script>
 
-/* IMAGE OPEN */
+/* IMAGE */
 
 function openImage(){
 
 document.getElementById('imageOverlay').style.display='flex';
 
 }
-
-/* IMAGE CLOSE */
 
 function closeImage(){
 
