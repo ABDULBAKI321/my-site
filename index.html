@@ -21,12 +21,11 @@ body{
     background:#0f172a;
     color:white;
     display:flex;
-    flex-direction:column;
-    align-items:center;
+    justify-content:center;
     padding:20px;
 }
 
-/* MAIN WIDTH */
+/* CONTAINER */
 
 .container{
     width:100%;
@@ -38,7 +37,7 @@ body{
 .header-section{
     display:flex;
     align-items:center;
-    gap:20px;
+    gap:22px;
     margin-top:30px;
     flex-wrap:wrap;
 }
@@ -48,12 +47,17 @@ body{
 }
 
 .profile-img{
-    width:110px;
-    height:110px;
+    width:115px;
+    height:115px;
     border-radius:50%;
     object-fit:cover;
     border:3px solid #f59e0b;
     box-shadow:0 0 20px rgba(245,158,11,0.5);
+    transition:0.3s;
+}
+
+.profile-img:hover{
+    transform:scale(1.03);
 }
 
 .name-info h1{
@@ -64,25 +68,33 @@ body{
 .subtitle{
     color:#94a3b8;
     font-size:15px;
-    margin-bottom:12px;
+    margin-bottom:14px;
 }
 
-/* DIGITAL CLOCK */
+/* CLOCK */
 
 .clock-box{
     display:inline-block;
     background:#1e293b;
-    padding:8px 18px;
-    border-radius:12px;
+    padding:10px 18px;
+    border-radius:14px;
     border:1px solid rgba(255,255,255,0.08);
     box-shadow:0 0 15px rgba(0,0,0,0.2);
+    text-align:center;
 }
 
 #digital-clock{
     color:#f59e0b;
-    font-size:20px;
+    font-size:21px;
     font-weight:bold;
     letter-spacing:2px;
+}
+
+#day-name{
+    color:#94a3b8;
+    font-size:13px;
+    margin-top:6px;
+    letter-spacing:1px;
 }
 
 /* CARD */
@@ -91,7 +103,7 @@ body{
     background:#1e293b;
     width:100%;
     padding:25px;
-    border-radius:22px;
+    border-radius:24px;
     margin-top:22px;
     box-shadow:0 10px 25px rgba(0,0,0,0.25);
     border:1px solid rgba(255,255,255,0.05);
@@ -100,7 +112,11 @@ body{
 /* EID CARD */
 
 .eid-wish{
-    background:linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95));
+    background:linear-gradient(
+        135deg,
+        rgba(30,41,59,0.9),
+        rgba(15,23,42,0.95)
+    );
     border:1px dashed #f59e0b;
     text-align:center;
 }
@@ -108,7 +124,13 @@ body{
 .eid-text{
     font-size:34px;
     font-weight:bold;
-    background:linear-gradient(45deg,#ffd700,#ff8c00,#ff4500,#ffd700);
+    background:linear-gradient(
+        45deg,
+        #ffd700,
+        #ff8c00,
+        #ff4500,
+        #ffd700
+    );
     background-size:200% auto;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
@@ -233,6 +255,18 @@ body{
     max-height:85%;
     border-radius:15px;
     border:2px solid #f59e0b;
+    animation:zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn{
+    from{
+        transform:scale(0.7);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
 }
 
 /* MOBILE */
@@ -256,6 +290,10 @@ body{
         font-size:28px;
     }
 
+    .social-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
 }
 
 </style>
@@ -265,10 +303,15 @@ body{
 
 <div class="container">
 
+<!-- HEADER -->
+
 <div class="header-section">
 
 <div class="profile-img-container" onclick="openImage()">
-<img src="VIP_Temp_File_image_repair_1776952696308.jpg" class="profile-img">
+
+<img src="VIP_Temp_File_image_repair_1776952696308.jpg"
+class="profile-img">
+
 </div>
 
 <div class="name-info">
@@ -277,20 +320,29 @@ body{
 
 <p class="subtitle">ব্যক্তিগত পেজ</p>
 
+<!-- DIGITAL CLOCK -->
+
 <div class="clock-box">
+
 <div id="digital-clock">00:00:00</div>
+
+<div id="day-name">শনিবার</div>
+
 </div>
 
 </div>
+
 </div>
 
 <!-- IMAGE OVERLAY -->
 
 <div class="overlay" id="imageOverlay" onclick="closeImage()">
+
 <img src="VIP_Temp_File_image_repair_1776952696308.jpg">
+
 </div>
 
-<!-- EID -->
+<!-- EID WISH -->
 
 <div class="card eid-wish">
 
@@ -348,32 +400,59 @@ BIO
 
 <div class="social-grid">
 
-<a href="https://www.facebook.com/Abdulbaki231" target="_blank" class="social-item">
+<a href="https://www.facebook.com/Abdulbaki231"
+target="_blank"
+class="social-item">
+
 <div class="icon-circle" style="color:#1877F2;">
 <i class="fab fa-facebook"></i>
 </div>
+
 <span>Facebook</span>
+
 </a>
 
-<a href="https://wa.me/8801575586681" target="_blank" class="social-item">
+<a href="https://wa.me/8801575586681"
+target="_blank"
+class="social-item">
+
 <div class="icon-circle" style="color:#25D366;">
 <i class="fab fa-whatsapp"></i>
 </div>
+
 <span>WhatsApp</span>
+
 </a>
 
-<a href="https://www.instagram.com/abdul_baki_6.5" target="_blank" class="social-item">
+<a href="https://www.instagram.com/abdul_baki_6.5"
+target="_blank"
+class="social-item">
+
 <div class="icon-circle" style="color:#E4405F;">
 <i class="fab fa-instagram"></i>
 </div>
+
 <span>Instagram</span>
+
 </a>
 
+<a href="https://t.me/Abdul23104"
+target="_blank"
+class="social-item">
+
+<div class="icon-circle" style="color:#0088cc;">
+<i class="fab fa-telegram"></i>
+</div>
+
+<span>Telegram</span>
+
+</a>
 
 </div>
+
 </div>
 
-<!-- OFFLINE -->
+<!-- OFFLINE CONTACT -->
 
 <div class="card offline-section">
 
@@ -387,8 +466,11 @@ BIO
 </p>
 
 <a href="tel:01575586681" class="call-button">
+
 <i class="fas fa-phone-volume"></i>
+
 01575586681
+
 </a>
 
 </div>
@@ -415,34 +497,65 @@ BIO
 
 <script>
 
-/* IMAGE */
+/* IMAGE OPEN */
 
 function openImage(){
-    document.getElementById('imageOverlay').style.display='flex';
+
+document.getElementById('imageOverlay').style.display='flex';
+
 }
+
+/* IMAGE CLOSE */
 
 function closeImage(){
-    document.getElementById('imageOverlay').style.display='none';
+
+document.getElementById('imageOverlay').style.display='none';
+
 }
 
-/* DIGITAL CLOCK */
+/* CLOCK */
 
 function updateClock(){
 
-    const now = new Date();
+const now = new Date();
 
-    let h = now.getHours();
-    let m = now.getMinutes();
-    let s = now.getSeconds();
+/* TIME */
 
-    h = String(h).padStart(2,'0');
-    m = String(m).padStart(2,'0');
-    s = String(s).padStart(2,'0');
+let h = now.getHours();
+let m = now.getMinutes();
+let s = now.getSeconds();
 
-    document.getElementById("digital-clock").innerHTML =
-    `${h}:${m}:${s}`;
+h = String(h).padStart(2,'0');
+m = String(m).padStart(2,'0');
+s = String(s).padStart(2,'0');
+
+/* DAY */
+
+const days = [
+
+"রবিবার",
+"সোমবার",
+"মঙ্গলবার",
+"বুধবার",
+"বৃহস্পতিবার",
+"শুক্রবার",
+"শনিবার"
+
+];
+
+const dayName = days[now.getDay()];
+
+/* UPDATE */
+
+document.getElementById("digital-clock").innerHTML =
+`${h}:${m}:${s}`;
+
+document.getElementById("day-name").innerHTML =
+dayName;
 
 }
+
+/* AUTO UPDATE */
 
 setInterval(updateClock,1000);
 
