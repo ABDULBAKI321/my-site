@@ -7,10 +7,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* থিম ভেরিয়েবল */
 :root {
     --bg-color: #0f172a;
-    --card-bg: #1e293b;
+    --card-bg: rgba(30, 41, 59, 0.7); /* Glassmorphism effect */
     --text-primary: #ffffff;
     --text-secondary: #94a3b8;
     --accent: #f59e0b;
@@ -19,7 +18,7 @@
 
 [data-theme="light"] {
     --bg-color: #f1f5f9;
-    --card-bg: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.8);
     --text-primary: #1e293b;
     --text-secondary: #64748b;
     --accent: #0ea5e9;
@@ -43,17 +42,25 @@ body{
     display:flex;
     justify-content:center;
     padding:18px;
+    overflow-x: hidden;
+}
+
+/* কাস্টম কার্সর (ফিচার ৬) */
+#custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    transform: translate(-50%, -50%);
 }
 
 .container{ width:100%; max-width:850px; position: relative; }
 
-/* থিম বাটন */
-.theme-switch-wrapper {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
+.theme-switch-wrapper { position: absolute; top: 0; right: 0; z-index: 10; }
 .theme-btn {
     background: var(--card-bg);
     border: 2px solid var(--accent);
@@ -65,67 +72,71 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    backdrop-filter: blur(5px);
 }
 
 /* HEADER */
 .header-section{ display:flex; align-items:center; gap:18px; margin-top:40px; }
-.profile-img{ width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--accent); box-shadow:0 0 15px var(--accent); cursor: pointer; }
+.profile-img{ 
+    width:100px; height:100px; border-radius:50%; object-fit:cover; 
+    border:3px solid var(--accent); box-shadow:0 0 15px var(--accent); 
+    cursor: pointer; animation: pulse 2s infinite; 
+}
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 15px var(--accent); }
+    50% { transform: scale(1.03); box-shadow: 0 0 25px var(--accent); }
+    100% { transform: scale(1); box-shadow: 0 0 15px var(--accent); }
+}
+
 .name-info h1{ font-size:26px; }
 .subtitle{ color: var(--text-secondary); font-size:14px; margin-bottom:10px; }
 
 /* CLOCK */
-.clock-box{ display:inline-flex; align-items:center; gap:10px; background: var(--card-bg); padding:8px 15px; border-radius:12px; border:1px solid var(--accent); }
+.clock-box{ display:inline-flex; align-items:center; gap:10px; background: var(--card-bg); padding:8px 15px; border-radius:12px; border:1px solid var(--accent); backdrop-filter: blur(10px); }
 #digital-clock{ color: var(--accent); font-weight:bold; letter-spacing:1px; }
 
 /* CARD */
-.card{ background: var(--card-bg); width:100%; padding:24px; border-radius:24px; margin-top:20px; box-shadow:0 10px 25px rgba(0,0,0,0.2); }
-
-/* SOCIAL GRID - FIXED FOR ONE LINE */
-.social-grid {
-    display: flex;
-    justify-content: space-between; /* ৪টি আইকন সমান দূরত্বে এক লাইনে রাখবে */
-    align-items: flex-start;
-    gap: 5px;
-    margin-top: 20px;
+.card{ 
+    background: var(--card-bg); width:100%; padding:24px; border-radius:24px; 
+    margin-top:20px; box-shadow:0 10px 25px rgba(0,0,0,0.2); 
+    backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05);
 }
 
-.social-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    flex: 1; /* প্রতিটি আইকন সমান জায়গা নেবে */
+/* টাইপিং ইফেক্ট (ফিচার ২) */
+#typing-intro::after { content: "|"; animation: blink 0.7s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ব্যাটারি স্কিল মিটার (ফিচার ১) */
+.skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold; }
+.battery-container {
+    width: 100%; height: 20px; background: #334155; border-radius: 6px; 
+    border: 2px solid var(--accent); padding: 2px; position: relative;
+}
+.battery-level {
+    height: 100%; background: linear-gradient(90deg, var(--accent), #22c55e);
+    border-radius: 3px; width: 0%; transition: width 2s ease-in-out;
 }
 
+/* SOCIAL GRID */
+.social-grid { display: flex; justify-content: space-between; align-items: flex-start; gap: 5px; margin-top: 20px; }
+.social-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; flex: 1; }
 .icon-circle {
-    width: 55px;
-    height: 55px;
-    border-radius: 16px;
-    background: rgba(255,255,255,0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    border: 1px solid var(--accent);
-    transition: 0.3s;
-    margin-bottom: 8px;
+    width: 55px; height: 55px; border-radius: 16px; background: rgba(255,255,255,0.05);
+    display: flex; align-items: center; justify-content: center; font-size: 24px;
+    border: 1px solid var(--accent); transition: 0.3s; margin-bottom: 8px;
 }
+.icon-circle:hover { transform: translateY(-5px) rotate(10deg); box-shadow: 0 5px 15px var(--accent); }
 
-.social-item span {
-    color: var(--text-secondary);
-    font-size: 11px;
-    font-weight: 500;
-    text-align: center;
-    word-break: break-word;
-}
+.social-item span { color: var(--text-secondary); font-size: 11px; text-align: center; }
 
 /* CALL BUTTON */
 .call-button{
     display:flex; justify-content:center; align-items:center; gap:12px;
     background: linear-gradient(90deg, #06b6d4, #22c55e);
     color:white; text-decoration:none; padding:16px; border-radius:16px;
-    font-weight:bold; margin-top:15px; font-size:20px;
+    font-weight:bold; margin-top:15px; font-size:20px; transition: 0.3s;
 }
+.call-button:hover { transform: scale(1.02); filter: brightness(1.1); }
 
 .note-box { background: rgba(0,0,0,0.1); padding:12px; border-left:4px solid var(--accent); margin-top:10px; }
 
@@ -134,11 +145,13 @@ body{
 
 @media(max-width:500px){
     .icon-circle { width: 50px; height: 50px; font-size: 22px; }
-    .social-item span { font-size: 10px; }
+    #custom-cursor { display: none; } /* মোবাইলে কাস্টম কার্সর দরকার নেই */
 }
 </style>
 </head>
 <body>
+
+<div id="custom-cursor"></div>
 
 <div class="container">
     <div class="theme-switch-wrapper">
@@ -148,6 +161,7 @@ body{
     <div class="header-section">
         <div onclick="openImage()"><img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="P" class="profile-img"></div>
         <div class="name-info">
+            <p id="dynamic-greeting" style="color: var(--accent); font-weight: bold; font-size: 14px; margin-bottom: 5px;"></p>
             <h1>মোঃ আব্দুল বাকি মিয়া</h1>
             <p class="subtitle">ব্যক্তিগত পেজ</p>
             <div class="clock-box">
@@ -165,9 +179,21 @@ body{
 
     <div class="card">
         <h2>ABOUT ME <i class="fas fa-bolt" style="color:var(--accent);"></i></h2>
-        <p style="color:var(--text-secondary); line-height:1.6; text-transform:uppercase; font-size:14px; margin-top:10px;">
-            I AM MD. ABDUL BAKI MIA, AN ELECTRICAL ENGINEERING STUDENT WITH A PASSION FOR TECHNOLOGY.
-        </p>
+        <p id="typing-intro" style="color:var(--text-secondary); line-height:1.6; text-transform:uppercase; font-size:14px; margin-top:10px; min-height: 45px;">
+            </p>
+    </div>
+
+    <div class="card">
+        <h2>SKILLS <i class="fas fa-microchip" style="color:var(--accent);"></i></h2>
+        <div style="margin-top: 15px;">
+            <div class="skill-label">
+                <span>হাউজ ওয়্যারিং (House Wiring)</span>
+                <span>৯৮%</span>
+            </div>
+            <div class="battery-container">
+                <div class="battery-level" id="battery-skill" style="width: 0%;"></div>
+            </div>
+        </div>
     </div>
 
     <div class="card">
@@ -214,6 +240,41 @@ body{
 </div>
 
 <script>
+/* ১. কাস্টম কার্সর লজিক */
+const cursor = document.getElementById('custom-cursor');
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+});
+
+/* ২. ডাইনামিক গ্রিটিং (ফিচার ৮) */
+function setGreeting() {
+    const hour = new Date().getHours();
+    const greetingEl = document.getElementById('dynamic-greeting');
+    if (hour < 12) greetingEl.innerText = "শুভ সকাল! ☀️";
+    else if (hour < 17) greetingEl.innerText = "শুভ দুপুর! 🌤️";
+    else greetingEl.innerText = "শুভ সন্ধ্যা! 🌙";
+}
+setGreeting();
+
+/* ৩. টাইপিং ইফেক্ট (ফিচার ২) */
+const introText = "I AM MD. ABDUL BAKI MIA, AN ELECTRICAL ENGINEERING STUDENT WITH A PASSION FOR TECHNOLOGY.";
+let index = 0;
+function type() {
+    if (index < introText.length) {
+        document.getElementById("typing-intro").innerHTML += introText.charAt(index);
+        index++;
+        setTimeout(type, 50);
+    }
+}
+window.onload = () => {
+    type();
+    // ৪. ব্যাটারি এনিমেশন ট্রিগার
+    setTimeout(() => {
+        document.getElementById('battery-skill').style.width = "98%";
+    }, 500);
+};
+
 function openImage(){ document.getElementById('imageOverlay').style.display='flex'; }
 function closeImage(){ document.getElementById('imageOverlay').style.display='none'; }
 
