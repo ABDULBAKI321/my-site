@@ -42,7 +42,6 @@ body{
 
 .container{ width:100%; max-width:850px; position: relative; }
 
-/* থিম সুইচ */
 .theme-switch-wrapper { position: absolute; top: 0; right: 0; z-index: 10; }
 .theme-btn {
     background: var(--card-bg); border: 2px solid var(--accent); color: var(--accent);
@@ -72,23 +71,20 @@ body{
     backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05);
 }
 
-/* ৪. এনিমেটেড ব্লাড কাউন্টার স্টাইল (আপডেটেড) */
+/* TYPING EFFECT */
+#typing-intro::after { content: "|"; animation: blink 0.7s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* BLOOD COUNTER */
 .blood-stats {
     display: flex; align-items: center; justify-content: space-around;
     padding: 10px; background: rgba(239, 68, 68, 0.1); border-radius: 15px;
 }
-.counter-box { text-align: center; }
-.counter-number {
-    font-size: 40px; font-weight: bold; color: #ef4444; display: block;
-}
+.counter-number { font-size: 40px; font-weight: bold; color: #ef4444; }
 .heart-icon { animation: beat 1s infinite; color: #ef4444; font-size: 30px; }
-@keyframes beat {
-    0% { transform: scale(1); }
-    20% { transform: scale(1.2); }
-    40% { transform: scale(1); }
-}
+@keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-/* ৫. ব্যাটারি মিটার */
+/* BATTERY */
 .battery-container {
     width: 100%; height: 20px; background: #334155; border-radius: 6px; 
     border: 2px solid var(--accent); padding: 2px; margin-top: 10px;
@@ -108,15 +104,12 @@ body{
 }
 .social-item span { color: var(--text-secondary); font-size: 11px; }
 
-/* ৭. ভিজিটর কাউন্টার স্টাইল (আপডেটেড) */
+/* VISITOR COUNTER */
 .visitor-box {
     text-align: center; margin-top: 30px; padding: 15px;
     border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; color: var(--text-secondary);
 }
-.v-number {
-    background: var(--accent); color: #000; padding: 2px 8px;
-    border-radius: 5px; font-weight: bold; margin-left: 5px;
-}
+.v-number { background: var(--accent); color: #000; padding: 2px 8px; border-radius: 5px; font-weight: bold; }
 
 .overlay{ position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:1000; }
 .overlay img{ max-width:85%; border-radius:15px; border:2px solid var(--accent); }
@@ -127,7 +120,6 @@ body{
     color:white; text-decoration:none; padding:16px; border-radius:16px;
     font-weight:bold; margin-top:15px; font-size:20px;
 }
-
 </style>
 </head>
 <body>
@@ -150,13 +142,33 @@ body{
         </div>
     </div>
 
+    <div class="card" style="border:1px dashed var(--accent); text-align:center;">
+        <p style="font-size:28px; font-weight:bold; color:var(--accent);">ঈদ মোবারক! 🌙</p>
+        <div style="font-size:35px; margin:10px 0;">🐪 🐃</div>
+        <p style="color:var(--accent); font-size:14px;">পবিত্র ঈদুল আযহার অগ্রিম শুভেচ্ছা! ✨</p>
+    </div>
+
     <div class="card">
-        <h2 style="font-size: 18px; margin-bottom: 15px;">রক্তদান তথ্য (Blood Donation) <i class="fas fa-hand-holding-heart" style="color:#ef4444;"></i></h2>
+        <h2>ABOUT ME <i class="fas fa-bolt" style="color:var(--accent);"></i></h2>
+        <p id="typing-intro" style="color:var(--text-secondary); line-height:1.6; text-transform:uppercase; font-size:14px; margin-top:10px; min-height: 45px;">
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>SKILLS <i class="fas fa-microchip" style="color:var(--accent);"></i></h2>
+        <div style="margin-top: 10px;">
+            <p style="font-size: 14px;">হাউজ ওয়্যারিং (House Wiring) - <span style="color:var(--accent);">৯৮%</span></p>
+            <div class="battery-container"><div class="battery-level" id="skill-bar"></div></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="font-size: 18px; margin-bottom: 15px;">রক্তদান তথ্য <i class="fas fa-hand-holding-heart" style="color:#ef4444;"></i></h2>
         <div class="blood-stats">
             <div class="heart-icon"><i class="fas fa-heart"></i></div>
             <div class="counter-box">
                 <span class="counter-number" id="blood-count">0</span>
-                <span style="font-size: 12px; color: var(--text-secondary);">মোট দান (বার)</span>
+                <span style="font-size: 12px; color: var(--text-secondary); display: block;">মোট দান (বার)</span>
             </div>
             <div style="text-align: right;">
                 <p style="font-size: 14px; font-weight: bold; color: #ef4444;">O+ (Positive)</p>
@@ -166,16 +178,8 @@ body{
     </div>
 
     <div class="card">
-        <h2>SKILLS <i class="fas fa-bolt" style="color:var(--accent);"></i></h2>
-        <div style="margin-top: 10px;">
-            <p style="font-size: 14px;">হাউজ ওয়্যারিং (House Wiring) - <span style="color:var(--accent);">৯৮%</span></p>
-            <div class="battery-container"><div class="battery-level" id="skill-bar"></div></div>
-        </div>
-    </div>
-
-    <div class="card">
         <h2>BIO <i class="fas fa-pen-nib" style="color:#10b981;"></i></h2>
-        <p style="color:var(--text-secondary);">O+ 🩸 26 January 2026 ♻️ ৪ বার রক্তদান সম্পন্ন 🌟</p>
+        <p style="color:var(--text-secondary); margin-top:10px;">O+ 🩸 26 January 2026 ♻️ ৪ বার রক্তদান সম্পন্ন 🌟</p>
     </div>
 
     <div class="card">
@@ -205,9 +209,15 @@ body{
         <a href="tel:01575586681" class="call-button"><i class="fas fa-phone-volume"></i> 01575586681</a>
     </div>
 
+    <div class="card">
+        <h2>নোট 📝</h2>
+        <div class="note-box">⭐... 😊</div>
+        <div class="note-box">⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷</div>
+    </div>
+
     <div class="visitor-box">
         <i class="fas fa-users"></i> প্রোফাইল ভিজিটর: <span class="v-number" id="visitor-count">১২৫০</span>
-        <p style="font-size: 10px; margin-top: 5px; opacity: 0.6;">© ২০২৪ মোঃ আব্দুল বাকি মিয়া | সকল অধিকার সংরক্ষিত</p>
+        <p style="font-size: 10px; margin-top: 10px; opacity: 0.6;">© ২০২৬ মোঃ আব্দুল বাকি মিয়া</p>
     </div>
 </div>
 
@@ -216,43 +226,52 @@ body{
 </div>
 
 <script>
-/* ১. রক্তদান কাউন্টার অ্যানিমেশন */
-function animateBloodCounter() {
-    let count = 0;
-    const target = 4; // আপনার ৪ বার রক্তদান
-    const counterEl = document.getElementById('blood-count');
-    const interval = setInterval(() => {
-        if(count < target) {
-            count++;
-            counterEl.innerText = count;
-        } else {
-            clearInterval(interval);
-        }
-    }, 300);
+// টাইপিং ইফেক্ট
+const introText = "I AM MD. ABDUL BAKI MIA, AN ELECTRICAL ENGINEERING STUDENT WITH A PASSION FOR TECHNOLOGY.";
+let textIdx = 0;
+function typeIntro() {
+    if (textIdx < introText.length) {
+        document.getElementById("typing-intro").innerHTML += introText.charAt(textIdx);
+        textIdx++;
+        setTimeout(typeIntro, 50);
+    }
 }
 
-/* ২. ভিজিটর কাউন্টার (র‍্যান্ডম ডাইনামিক আপডেট) */
+// রক্তদান কাউন্টার
+function animateBlood() {
+    let current = 0;
+    const target = 4;
+    const el = document.getElementById('blood-count');
+    const timer = setInterval(() => {
+        if(current < target) {
+            current++;
+            el.innerText = current;
+        } else clearInterval(timer);
+    }, 400);
+}
+
+// ভিজিটর আপডেট
 function updateVisitors() {
-    const countEl = document.getElementById('visitor-count');
-    let currentCount = 1250; 
+    const el = document.getElementById('visitor-count');
+    let count = 1250; 
     setInterval(() => {
-        currentCount += Math.floor(Math.random() * 3); // প্রতি কয়েক সেকেন্ডে ভিজিটর বাড়বে
-        countEl.innerText = currentCount;
-    }, 5000);
+        count += Math.floor(Math.random() * 2);
+        el.innerText = count;
+    }, 7000);
 }
 
-/* ৩. ডাইনামিক গ্রিটিং */
+window.onload = () => {
+    typeIntro();
+    animateBlood();
+    updateVisitors();
+    setTimeout(() => { document.getElementById('skill-bar').style.width = "98%"; }, 600);
+};
+
 const hour = new Date().getHours();
 const greetingEl = document.getElementById('dynamic-greeting');
 if(hour < 12) greetingEl.innerText = "শুভ সকাল! ☀️";
 else if(hour < 17) greetingEl.innerText = "শুভ দুপুর! 🌤️";
 else greetingEl.innerText = "শুভ সন্ধ্যা! 🌙";
-
-window.onload = () => {
-    animateBloodCounter();
-    updateVisitors();
-    setTimeout(() => { document.getElementById('skill-bar').style.width = "98%"; }, 500);
-};
 
 function openImage(){ document.getElementById('imageOverlay').style.display='flex'; }
 function closeImage(){ document.getElementById('imageOverlay').style.display='none'; }
