@@ -3,29 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>মোঃ আব্দুল বাকি মিয়া - প্রোফাইল</title>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
+/* থিম ভেরিয়েবল (Electrical Engineering Concept) */
+:root {
+    --bg-color: #0f172a; /* ডার্ক থিম - সার্কিট ব্লু */
+    --card-bg: #1e293b;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --accent: #f59e0b; /* ভোল্টেজ ইয়েলো */
+    --circuit-color: rgba(245, 158, 11, 0.05); /* সার্কিট গ্রিড কালার */
+    --shadow: rgba(0,0,0,0.3);
+}
+
+[data-theme="light"] {
+    --bg-color: #f1f5f9;
+    --card-bg: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --accent: #0ea5e9;
+    --circuit-color: rgba(14, 165, 233, 0.05);
+    --shadow: rgba(0,0,0,0.1);
+}
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
+    transition: background 0.4s ease, color 0.4s ease;
 }
 
 body{
     font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-    background:#0f172a;
-    color:white;
+    background: var(--bg-color);
+    /* ইলেক্ট্রিক্যাল গ্রিড ইফেক্ট */
+    background-image: linear-gradient(var(--circuit-color) 1.5px, transparent 1.5px), 
+                      linear-gradient(90deg, var(--circuit-color) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+    color: var(--text-primary);
     display:flex;
     justify-content:center;
     padding:18px;
 }
-
-/* CONTAINER */
 
 .container{
     width:100%;
@@ -33,7 +54,6 @@ body{
 }
 
 /* HEADER */
-
 .header-section{
     display:flex;
     align-items:center;
@@ -41,9 +61,26 @@ body{
     margin-top:25px;
 }
 
-.profile-img-container{
-    cursor:pointer;
-    flex-shrink:0;
+/* থিম সুইচ বাটন (চাঁদ আইকন) */
+.theme-switch-wrapper {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.theme-btn {
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px var(--accent);
 }
 
 .profile-img{
@@ -51,651 +88,219 @@ body{
     height:105px;
     border-radius:50%;
     object-fit:cover;
-    border:3px solid #f59e0b;
-    box-shadow:0 0 20px rgba(245,158,11,0.5);
-    transition:0.3s;
+    border:3px solid var(--accent);
+    box-shadow:0 0 20px var(--accent);
+    cursor: pointer;
 }
 
-.profile-img:hover{
-    transform:scale(1.03);
-}
-
-.name-info{
-    flex:1;
-}
-
-.name-info h1{
-    font-size:30px;
-    margin-bottom:5px;
-}
-
-.subtitle{
-    color:#94a3b8;
-    font-size:14px;
-    margin-bottom:12px;
-}
+.name-info h1{ font-size:28px; margin-bottom:5px; }
+.subtitle{ color: var(--text-secondary); font-size:14px; margin-bottom:12px; }
 
 /* CLOCK */
-
 .clock-box{
-
     display:inline-flex;
     align-items:center;
     gap:15px;
-
-    background:#1e293b;
-
+    background: var(--card-bg);
     padding:10px 18px;
-
     border-radius:14px;
-
-    border:1px solid rgba(255,255,255,0.08);
-
-    box-shadow:0 0 15px rgba(0,0,0,0.2);
-
+    border:1px solid var(--accent);
 }
 
-#digital-clock{
-    color:#f59e0b;
-    font-size:20px;
-    font-weight:bold;
-    letter-spacing:2px;
-}
-
-#day-name{
-    color:#cbd5e1;
-    font-size:14px;
-}
+#digital-clock{ color: var(--accent); font-size:20px; font-weight:bold; letter-spacing:2px; }
 
 /* CARD */
-
 .card{
-    background:#1e293b;
-
+    background: var(--card-bg);
     width:100%;
-
     padding:24px;
-
     border-radius:24px;
-
     margin-top:22px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,0.25);
-
+    box-shadow:0 10px 25px var(--shadow);
     border:1px solid rgba(255,255,255,0.05);
 }
 
+/* ELECTRICAL HOVER EFFECT */
+.card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    transition: 0.3s;
+}
+
 /* EID CARD */
-
 .eid-wish{
-
-    background:linear-gradient(
-    135deg,
-    rgba(30,41,59,0.9),
-    rgba(15,23,42,0.95));
-
-    border:1px dashed #f59e0b;
-
+    border:2px dashed var(--accent);
     text-align:center;
 }
 
 .eid-text{
-
     font-size:34px;
-
     font-weight:bold;
-
-    background:linear-gradient(
-    45deg,
-    #ffd700,
-    #ff8c00,
-    #ff4500,
-    #ffd700);
-
-    background-size:200% auto;
-
-    -webkit-background-clip:text;
-
-    -webkit-text-fill-color:transparent;
-
-    animation:shine 3s linear infinite;
+    color: var(--accent);
 }
 
-@keyframes shine{
-
-    to{
-        background-position:200% center;
-    }
-
-}
-
-/* SECTION TITLE */
-
-.about-section h2,
-.bio-section h2,
-.offline-section h2{
-
-    font-size:22px;
-
-    margin-bottom:15px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-/* TEXT */
-
-.content-text{
-
-    color:#cbd5e1;
-
-    line-height:1.8;
-
-    font-size:16px;
-}
-
-/* SOCIAL */
-
+/* SOCIALS */
 .social-grid{
-
     display:grid;
-
     grid-template-columns:repeat(4,1fr);
-
     gap:14px;
-
     margin-top:20px;
-
-    text-align:center;
-}
-
-.social-item{
-
-    text-decoration:none;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
 }
 
 .icon-circle{
-
     width:62px;
     height:62px;
-
     border-radius:18px;
-
-    background:rgba(255,255,255,0.05);
-
+    background: rgba(255,255,255,0.05);
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     font-size:28px;
-
-    border:1px solid rgba(255,255,255,0.1);
-
-    transition:0.3s;
-}
-
-.icon-circle:hover{
-    transform:translateY(-4px);
-}
-
-.social-item span{
-
-    margin-top:10px;
-
-    color:#94a3b8;
-
-    font-size:13px;
+    border:1px solid var(--accent);
 }
 
 /* CALL BUTTON */
-
 .call-button{
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     gap:12px;
-
-    background:linear-gradient(
-    90deg,
-    #06b6d4,
-    #22c55e
-    );
-
+    background: linear-gradient(90deg, #06b6d4, #22c55e);
     color:white;
-
     text-decoration:none;
-
     padding:16px;
-
     border-radius:16px;
-
     font-weight:bold;
-
     margin-top:18px;
-
-    transition:0.35s;
-
     font-size:22px;
-
-    box-shadow:0 0 20px rgba(34,197,94,0.20);
 }
-
-.call-button:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:0 0 25px rgba(6,182,212,0.35);
-}
-
-/* NOTE */
-
-.note-box{
-
-    background:rgba(15,23,42,0.5);
-
-    padding:14px;
-
-    border-left:4px solid #22c55e;
-
-    border-radius:8px;
-
-    margin-bottom:12px;
-}
-
-/* OVERLAY */
 
 .overlay{
-
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:100%;
-
-    background:rgba(0,0,0,0.9);
-
-    display:none;
-
-    justify-content:center;
-
-    align-items:center;
-
-    z-index:1000;
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:1000;
 }
-
-.overlay img{
-
-    max-width:85%;
-
-    max-height:85%;
-
-    border-radius:15px;
-
-    border:2px solid #f59e0b;
-
-    animation:zoomIn 0.3s ease;
-}
-
-@keyframes zoomIn{
-
-    from{
-        transform:scale(0.7);
-        opacity:0;
-    }
-
-    to{
-        transform:scale(1);
-        opacity:1;
-    }
-}
+.overlay img{ max-width:85%; border-radius:15px; border:2px solid var(--accent); }
 
 /* MOBILE */
-
 @media(max-width:700px){
-
-    .header-section{
-        align-items:center;
-    }
-
-    .profile-img{
-        width:92px;
-        height:92px;
-    }
-
-    .name-info h1{
-        font-size:22px;
-    }
-
-    .subtitle{
-        font-size:13px;
-    }
-
-    .clock-box{
-        padding:8px 12px;
-        gap:10px;
-    }
-
-    #digital-clock{
-        font-size:16px;
-    }
-
-    #day-name{
-        font-size:12px;
-    }
-
-    .card{
-        padding:18px;
-        border-radius:22px;
-    }
-
-    .eid-text{
-        font-size:28px;
-    }
-
-    .social-grid{
-        gap:8px;
-    }
-
-    .icon-circle{
-        width:55px;
-        height:55px;
-        font-size:24px;
-    }
-
-    .social-item span{
-        font-size:11px;
-    }
-
-    .call-button{
-        font-size:18px;
-        padding:14px;
-    }
-
+    .name-info h1{ font-size:22px; }
+    .icon-circle{ width:50px; height:50px; font-size:20px; }
 }
 
 </style>
 </head>
-
 <body>
 
+<div class="theme-switch-wrapper">
+    <button id="theme-toggle" class="theme-btn">
+        <i id="theme-icon" class="fas fa-moon"></i>
+    </button>
+</div>
+
 <div class="container">
-
-<!-- HEADER -->
-
-<div class="header-section">
-
-<div class="profile-img-container" onclick="openImage()">
-
-<img src="VIP_Temp_File_image_repair_1776952696308.jpg"
-alt="Profile"
-class="profile-img">
-
-</div>
-
-<div class="name-info">
-
-<h1>মোঃ আব্দুল বাকি মিয়া</h1>
-
-<p class="subtitle">ব্যক্তিগত পেজ</p>
-
-<!-- CLOCK -->
-
-<div class="clock-box">
-
-<div id="digital-clock">00:00:00</div>
-
-<div id="day-name">শনিবার</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- IMAGE OVERLAY -->
-
-<div class="overlay" id="imageOverlay" onclick="closeImage()">
-
-<img src="VIP_Temp_File_image_repair_1776952696308.jpg"
-alt="Full Image">
-
-</div>
-
-<!-- EID -->
-
-<div class="card eid-wish">
-
-<p class="eid-text">ঈদ মোবারক! 🌙</p>
-
-<div style="font-size:40px;margin:15px 0;">
-🐪 🐃
-</div>
-
-<p style="color:#00d2ff;font-size:15px;">
-পবিত্র ঈদুল আযহার অগ্রিম শুভেচ্ছা! ✨
-</p>
-
-</div>
-
-<!-- ABOUT -->
-
-<div class="card about-section">
-
-<h2>
-ABOUT ME
-<i class="fas fa-user-circle" style="color:#3b82f6;"></i>
-</h2>
-
-<p class="content-text" style="text-transform:uppercase;">
-
-I AM MD. ABDUL BAKI MIA, AN ELECTRICAL ENGINEERING STUDENT WITH A PASSION FOR TECHNOLOGY.
-
-</p>
-
-</div>
-
-<!-- BIO -->
-
-<div class="card bio-section">
-
-<h2>
-BIO
-<i class="fas fa-pen-nib" style="color:#10b981;"></i>
-</h2>
-
-<p class="content-text">
-O+ 🩸 26 January 2026 ♻️
-    4th time donate 🌟
-</p>
-
-</div>
-
-<!-- SOCIAL -->
-
-<div class="card">
-
-<h2 style="text-align:center;font-size:22px;">
-যোগাযোগ করুন 🤝
-</h2>
-
-<div class="social-grid">
-
-<a href="https://www.facebook.com/Abdulbaki231"
-target="_blank"
-class="social-item">
-
-<div class="icon-circle" style="color:#1877F2;">
-<i class="fab fa-facebook"></i>
-</div>
-
-<span>Facebook</span>
-
-</a>
-
-<a href="https://wa.me/8801575586681"
-target="_blank"
-class="social-item">
-
-<div class="icon-circle" style="color:#25D366;">
-<i class="fab fa-whatsapp"></i>
-</div>
-
-<span>WhatsApp</span>
-
-</a>
-
-<a href="https://www.instagram.com/abdul_baki_6.5"
-target="_blank"
-class="social-item">
-
-<div class="icon-circle" style="color:#E4405F;">
-<i class="fab fa-instagram"></i>
-</div>
-
-<span>Instagram</span>
-
-</a>
-
-<a href="https://t.me/Abdul23104"
-target="_blank"
-class="social-item">
-
-<div class="icon-circle" style="color:#0088cc;">
-<i class="fab fa-telegram"></i>
-</div>
-
-<span>Telegram</span>
-
-</a>
-
-</div>
-
-</div>
-
-<!-- OFFLINE -->
-
-<div class="card offline-section">
-
-<h2>
-অফলাইন যোগাযোগ
-<i class="fas fa-phone-alt" style="color:#22c55e;"></i>
-</h2>
-
-<p class="content-text">
-সরাসরি কল করুন 📳
-</p>
-
-<a href="tel:01575586681" class="call-button">
-
-<i class="fas fa-phone-volume"></i>
-
-01575586681
-
-</a>
-
-</div>
-
-<!-- NOTE -->
-
-<div class="card">
-
-<h2 style="margin-bottom:15px;">
-নোট 📝
-</h2>
-
-<div class="note-box">
-⭐... 😊
-</div>
-
-<div class="note-box">
-⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷
-</div>
-
-</div>
-
+    <div class="header-section">
+        <div class="profile-img-container" onclick="openImage()">
+            <img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="Profile" class="profile-img">
+        </div>
+        <div class="name-info">
+            <h1>মোঃ আব্দুল বাকি মিয়া</h1>
+            <p class="subtitle">ব্যক্তিগত পেজ</p>
+            <div class="clock-box">
+                <div id="digital-clock">00:00:00</div>
+                <div id="day-name" style="color:var(--text-secondary); font-size:14px;">শনিবার</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="imageOverlay" onclick="closeImage()">
+        <img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="Full Image">
+    </div>
+
+    <div class="card eid-wish">
+        <p class="eid-text">ঈদ মোবারক! 🌙</p>
+        <div style="font-size:40px;margin:15px 0;">🐪 🐃</div>
+        <p style="color:var(--accent); font-size:15px;">পবিত্র ঈদুল আযহার অগ্রিম শুভেচ্ছা! ✨</p>
+    </div>
+
+    <div class="card about-section">
+        <h2>ABOUT ME <i class="fas fa-bolt" style="color:var(--accent);"></i></h2>
+        <p style="color:var(--text-secondary); line-height:1.8; text-transform:uppercase;">
+            I AM MD. ABDUL BAKI MIA, AN ELECTRICAL ENGINEERING STUDENT WITH A PASSION FOR TECHNOLOGY.
+        </p>
+    </div>
+
+    <div class="card bio-section">
+        <h2>BIO <i class="fas fa-pen-nib" style="color:#10b981;"></i></h2>
+        <p style="color:var(--text-secondary);">O+ 🩸 26 January 2026 ♻️ 4th time donate 🌟</p>
+    </div>
+
+    <div class="card">
+        <h2 style="text-align:center;">যোগাযোগ করুন 🤝</h2>
+        <div class="social-grid">
+            <a href="https://www.facebook.com/Abdulbaki231" target="_blank" style="text-decoration:none; text-align:center;">
+                <div class="icon-circle" style="color:#1877F2;"><i class="fab fa-facebook"></i></div>
+                <span style="color:var(--text-secondary); font-size:12px;">Facebook</span>
+            </a>
+            <a href="https://wa.me/8801575586681" target="_blank" style="text-decoration:none; text-align:center;">
+                <div class="icon-circle" style="color:#25D366;"><i class="fab fa-whatsapp"></i></div>
+                <span style="color:var(--text-secondary); font-size:12px;">WhatsApp</span>
+            </a>
+            <a href="https://www.instagram.com/abdul_baki_6.5" target="_blank" style="text-decoration:none; text-align:center;">
+                <div class="icon-circle" style="color:#E4405F;"><i class="fab fa-instagram"></i></div>
+                <span style="color:var(--text-secondary); font-size:12px;">Instagram</span>
+            </a>
+            <a href="https://t.me/Abdul23104" target="_blank" style="text-decoration:none; text-align:center;">
+                <div class="icon-circle" style="color:#0088cc;"><i class="fab fa-telegram"></i></div>
+                <span style="color:var(--text-secondary); font-size:12px;">Telegram</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="card offline-section">
+        <h2>অফলাইন যোগাযোগ <i class="fas fa-phone-alt" style="color:#22c55e;"></i></h2>
+        <a href="tel:01575586681" class="call-button"><i class="fas fa-phone-volume"></i> 01575586681</a>
+    </div>
+
+    <div class="card">
+        <h2>নোট 📝</h2>
+        <div style="background:rgba(0,0,0,0.1); padding:12px; border-left:4px solid var(--accent); margin-top:10px;">⭐... 😊</div>
+        <div style="background:rgba(0,0,0,0.1); padding:12px; border-left:4px solid var(--accent); margin-top:10px;">⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷</div>
+    </div>
 </div>
 
 <script>
+/* IMAGE OVERLAY */
+function openImage(){ document.getElementById('imageOverlay').style.display='flex'; }
+function closeImage(){ document.getElementById('imageOverlay').style.display='none'; }
 
-/* IMAGE */
-
-function openImage(){
-
-document.getElementById('imageOverlay').style.display='flex';
-
-}
-
-function closeImage(){
-
-document.getElementById('imageOverlay').style.display='none';
-
-}
-
-/* CLOCK */
-
+/* CLOCK FUNCTION */
 function updateClock(){
-
-const now = new Date();
-
-/* TIME */
-
-let h = now.getHours();
-let m = now.getMinutes();
-let s = now.getSeconds();
-
-h = String(h).padStart(2,'0');
-m = String(m).padStart(2,'0');
-s = String(s).padStart(2,'0');
-
-/* DAY */
-
-const days = [
-
-"রবিবার",
-"সোমবার",
-"মঙ্গলবার",
-"বুধবার",
-"বৃহস্পতিবার",
-"শুক্রবার",
-"শনিবার"
-
-];
-
-const dayName = days[now.getDay()];
-
-/* UPDATE */
-
-document.getElementById("digital-clock").innerHTML =
-`${h}:${m}:${s}`;
-
-document.getElementById("day-name").innerHTML =
-dayName;
-
+    const now = new Date();
+    let h = String(now.getHours()).padStart(2,'0');
+    let m = String(now.getMinutes()).padStart(2,'0');
+    let s = String(now.getSeconds()).padStart(2,'0');
+    const days = ["রবিবার","সোমবার","মঙ্গলবার","বুধবার","বৃহস্পতিবার","শুক্রবার","শনিবার"];
+    document.getElementById("digital-clock").innerHTML = `${h}:${m}:${s}`;
+    document.getElementById("day-name").innerHTML = days[now.getDay()];
 }
-
-/* AUTO UPDATE */
-
 setInterval(updateClock,1000);
-
 updateClock();
 
+/* THEME SWITCH LOGIC */
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const body = document.body;
+
+themeToggle.addEventListener('click', () => {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+    }
+});
 </script>
 
 </body>
