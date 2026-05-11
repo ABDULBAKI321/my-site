@@ -7,15 +7,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* থিম ভেরিয়েবল (Electrical Engineering Concept) */
+/* থিম ভেরিয়েবল */
 :root {
-    --bg-color: #0f172a; /* ডার্ক থিম - সার্কিট ব্লু */
+    --bg-color: #0f172a;
     --card-bg: #1e293b;
     --text-primary: #ffffff;
     --text-secondary: #94a3b8;
-    --accent: #f59e0b; /* ভোল্টেজ ইয়েলো */
-    --circuit-color: rgba(245, 158, 11, 0.05); /* সার্কিট গ্রিড কালার */
-    --shadow: rgba(0,0,0,0.3);
+    --accent: #f59e0b;
+    --circuit-color: rgba(245, 158, 11, 0.05);
 }
 
 [data-theme="light"] {
@@ -25,20 +24,18 @@
     --text-secondary: #64748b;
     --accent: #0ea5e9;
     --circuit-color: rgba(14, 165, 233, 0.05);
-    --shadow: rgba(0,0,0,0.1);
 }
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    transition: background 0.4s ease, color 0.4s ease;
+    transition: background 0.3s, color 0.3s;
 }
 
 body{
     font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
     background: var(--bg-color);
-    /* ইলেক্ট্রিক্যাল গ্রিড ইফেক্ট */
     background-image: linear-gradient(var(--circuit-color) 1.5px, transparent 1.5px), 
                       linear-gradient(90deg, var(--circuit-color) 1.5px, transparent 1.5px);
     background-size: 30px 30px;
@@ -48,232 +45,178 @@ body{
     padding:18px;
 }
 
-.container{
-    width:100%;
-    max-width:850px;
-}
+.container{ width:100%; max-width:850px; position: relative; }
 
-/* HEADER */
-.header-section{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    margin-top:25px;
-}
-
-/* থিম সুইচ বাটন (চাঁদ আইকন) */
+/* থিম বাটন */
 .theme-switch-wrapper {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 0;
+    right: 0;
 }
 
 .theme-btn {
     background: var(--card-bg);
     border: 2px solid var(--accent);
     color: var(--accent);
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 10px var(--accent);
 }
 
-.profile-img{
-    width:105px;
-    height:105px;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid var(--accent);
-    box-shadow:0 0 20px var(--accent);
-    cursor: pointer;
-}
-
-.name-info h1{ font-size:28px; margin-bottom:5px; }
-.subtitle{ color: var(--text-secondary); font-size:14px; margin-bottom:12px; }
+/* HEADER */
+.header-section{ display:flex; align-items:center; gap:18px; margin-top:40px; }
+.profile-img{ width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--accent); box-shadow:0 0 15px var(--accent); cursor: pointer; }
+.name-info h1{ font-size:26px; }
+.subtitle{ color: var(--text-secondary); font-size:14px; margin-bottom:10px; }
 
 /* CLOCK */
-.clock-box{
-    display:inline-flex;
-    align-items:center;
-    gap:15px;
-    background: var(--card-bg);
-    padding:10px 18px;
-    border-radius:14px;
-    border:1px solid var(--accent);
-}
-
-#digital-clock{ color: var(--accent); font-size:20px; font-weight:bold; letter-spacing:2px; }
+.clock-box{ display:inline-flex; align-items:center; gap:10px; background: var(--card-bg); padding:8px 15px; border-radius:12px; border:1px solid var(--accent); }
+#digital-clock{ color: var(--accent); font-weight:bold; letter-spacing:1px; }
 
 /* CARD */
-.card{
-    background: var(--card-bg);
-    width:100%;
-    padding:24px;
-    border-radius:24px;
-    margin-top:22px;
-    box-shadow:0 10px 25px var(--shadow);
-    border:1px solid rgba(255,255,255,0.05);
+.card{ background: var(--card-bg); width:100%; padding:24px; border-radius:24px; margin-top:20px; box-shadow:0 10px 25px rgba(0,0,0,0.2); }
+
+/* SOCIAL GRID - FIXED FOR ONE LINE */
+.social-grid {
+    display: flex;
+    justify-content: space-between; /* ৪টি আইকন সমান দূরত্বে এক লাইনে রাখবে */
+    align-items: flex-start;
+    gap: 5px;
+    margin-top: 20px;
 }
 
-/* ELECTRICAL HOVER EFFECT */
-.card:hover {
-    border-color: var(--accent);
-    transform: translateY(-3px);
-    transition: 0.3s;
+.social-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    flex: 1; /* প্রতিটি আইকন সমান জায়গা নেবে */
 }
 
-/* EID CARD */
-.eid-wish{
-    border:2px dashed var(--accent);
-    text-align:center;
-}
-
-.eid-text{
-    font-size:34px;
-    font-weight:bold;
-    color: var(--accent);
-}
-
-/* SOCIALS */
-.social-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-    margin-top:20px;
-}
-
-.icon-circle{
-    width:62px;
-    height:62px;
-    border-radius:18px;
+.icon-circle {
+    width: 55px;
+    height: 55px;
+    border-radius: 16px;
     background: rgba(255,255,255,0.05);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:28px;
-    border:1px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    border: 1px solid var(--accent);
+    transition: 0.3s;
+    margin-bottom: 8px;
+}
+
+.social-item span {
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    word-break: break-word;
 }
 
 /* CALL BUTTON */
 .call-button{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:12px;
+    display:flex; justify-content:center; align-items:center; gap:12px;
     background: linear-gradient(90deg, #06b6d4, #22c55e);
-    color:white;
-    text-decoration:none;
-    padding:16px;
-    border-radius:16px;
-    font-weight:bold;
-    margin-top:18px;
-    font-size:22px;
+    color:white; text-decoration:none; padding:16px; border-radius:16px;
+    font-weight:bold; margin-top:15px; font-size:20px;
 }
 
-.overlay{
-    position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:1000;
-}
+.note-box { background: rgba(0,0,0,0.1); padding:12px; border-left:4px solid var(--accent); margin-top:10px; }
+
+.overlay{ position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:1000; }
 .overlay img{ max-width:85%; border-radius:15px; border:2px solid var(--accent); }
 
-/* MOBILE */
-@media(max-width:700px){
-    .name-info h1{ font-size:22px; }
-    .icon-circle{ width:50px; height:50px; font-size:20px; }
+@media(max-width:500px){
+    .icon-circle { width: 50px; height: 50px; font-size: 22px; }
+    .social-item span { font-size: 10px; }
 }
-
 </style>
 </head>
 <body>
 
-<div class="theme-switch-wrapper">
-    <button id="theme-toggle" class="theme-btn">
-        <i id="theme-icon" class="fas fa-moon"></i>
-    </button>
-</div>
-
 <div class="container">
+    <div class="theme-switch-wrapper">
+        <button id="theme-toggle" class="theme-btn"><i id="theme-icon" class="fas fa-moon"></i></button>
+    </div>
+
     <div class="header-section">
-        <div class="profile-img-container" onclick="openImage()">
-            <img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="Profile" class="profile-img">
-        </div>
+        <div onclick="openImage()"><img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="P" class="profile-img"></div>
         <div class="name-info">
             <h1>মোঃ আব্দুল বাকি মিয়া</h1>
             <p class="subtitle">ব্যক্তিগত পেজ</p>
             <div class="clock-box">
                 <div id="digital-clock">00:00:00</div>
-                <div id="day-name" style="color:var(--text-secondary); font-size:14px;">শনিবার</div>
+                <div id="day-name" style="color:var(--text-secondary); font-size:12px;">শনিবার</div>
             </div>
         </div>
     </div>
 
-    <div class="overlay" id="imageOverlay" onclick="closeImage()">
-        <img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="Full Image">
+    <div class="card" style="border:1px dashed var(--accent); text-align:center;">
+        <p style="font-size:28px; font-weight:bold; color:var(--accent);">ঈদ মোবারক! 🌙</p>
+        <div style="font-size:35px; margin:10px 0;">🐪 🐃</div>
+        <p style="color:var(--accent); font-size:14px;">পবিত্র ঈদুল আযহার অগ্রিম শুভেচ্ছা! ✨</p>
     </div>
 
-    <div class="card eid-wish">
-        <p class="eid-text">ঈদ মোবারক! 🌙</p>
-        <div style="font-size:40px;margin:15px 0;">🐪 🐃</div>
-        <p style="color:var(--accent); font-size:15px;">পবিত্র ঈদুল আযহার অগ্রিম শুভেচ্ছা! ✨</p>
-    </div>
-
-    <div class="card about-section">
+    <div class="card">
         <h2>ABOUT ME <i class="fas fa-bolt" style="color:var(--accent);"></i></h2>
-        <p style="color:var(--text-secondary); line-height:1.8; text-transform:uppercase;">
+        <p style="color:var(--text-secondary); line-height:1.6; text-transform:uppercase; font-size:14px; margin-top:10px;">
             I AM MD. ABDUL BAKI MIA, AN ELECTRICAL ENGINEERING STUDENT WITH A PASSION FOR TECHNOLOGY.
         </p>
     </div>
 
-    <div class="card bio-section">
+    <div class="card">
         <h2>BIO <i class="fas fa-pen-nib" style="color:#10b981;"></i></h2>
-        <p style="color:var(--text-secondary);">O+ 🩸 26 January 2026 ♻️ 4th time donate 🌟</p>
+        <p style="color:var(--text-secondary); margin-top:10px;">O+ 🩸 26 January 2026 ♻️ 4th time donate 🌟</p>
     </div>
 
     <div class="card">
         <h2 style="text-align:center;">যোগাযোগ করুন 🤝</h2>
         <div class="social-grid">
-            <a href="https://www.facebook.com/Abdulbaki231" target="_blank" style="text-decoration:none; text-align:center;">
+            <a href="https://www.facebook.com/Abdulbaki231" target="_blank" class="social-item">
                 <div class="icon-circle" style="color:#1877F2;"><i class="fab fa-facebook"></i></div>
-                <span style="color:var(--text-secondary); font-size:12px;">Facebook</span>
+                <span>Facebook</span>
             </a>
-            <a href="https://wa.me/8801575586681" target="_blank" style="text-decoration:none; text-align:center;">
+            <a href="https://wa.me/8801575586681" target="_blank" class="social-item">
                 <div class="icon-circle" style="color:#25D366;"><i class="fab fa-whatsapp"></i></div>
-                <span style="color:var(--text-secondary); font-size:12px;">WhatsApp</span>
+                <span>WhatsApp</span>
             </a>
-            <a href="https://www.instagram.com/abdul_baki_6.5" target="_blank" style="text-decoration:none; text-align:center;">
+            <a href="https://www.instagram.com/abdul_baki_6.5" target="_blank" class="social-item">
                 <div class="icon-circle" style="color:#E4405F;"><i class="fab fa-instagram"></i></div>
-                <span style="color:var(--text-secondary); font-size:12px;">Instagram</span>
+                <span>Instagram</span>
             </a>
-            <a href="https://t.me/Abdul23104" target="_blank" style="text-decoration:none; text-align:center;">
+            <a href="https://t.me/Abdul23104" target="_blank" class="social-item">
                 <div class="icon-circle" style="color:#0088cc;"><i class="fab fa-telegram"></i></div>
-                <span style="color:var(--text-secondary); font-size:12px;">Telegram</span>
+                <span>Telegram</span>
             </a>
         </div>
     </div>
 
-    <div class="card offline-section">
+    <div class="card">
         <h2>অফলাইন যোগাযোগ <i class="fas fa-phone-alt" style="color:#22c55e;"></i></h2>
         <a href="tel:01575586681" class="call-button"><i class="fas fa-phone-volume"></i> 01575586681</a>
     </div>
 
     <div class="card">
         <h2>নোট 📝</h2>
-        <div style="background:rgba(0,0,0,0.1); padding:12px; border-left:4px solid var(--accent); margin-top:10px;">⭐... 😊</div>
-        <div style="background:rgba(0,0,0,0.1); padding:12px; border-left:4px solid var(--accent); margin-top:10px;">⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷</div>
+        <div class="note-box">⭐... 😊</div>
+        <div class="note-box">⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷</div>
     </div>
 </div>
 
+<div class="overlay" id="imageOverlay" onclick="closeImage()">
+    <img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="F">
+</div>
+
 <script>
-/* IMAGE OVERLAY */
 function openImage(){ document.getElementById('imageOverlay').style.display='flex'; }
 function closeImage(){ document.getElementById('imageOverlay').style.display='none'; }
 
-/* CLOCK FUNCTION */
 function updateClock(){
     const now = new Date();
     let h = String(now.getHours()).padStart(2,'0');
@@ -283,14 +226,10 @@ function updateClock(){
     document.getElementById("digital-clock").innerHTML = `${h}:${m}:${s}`;
     document.getElementById("day-name").innerHTML = days[now.getDay()];
 }
-setInterval(updateClock,1000);
-updateClock();
+setInterval(updateClock,1000); updateClock();
 
-/* THEME SWITCH LOGIC */
 const themeToggle = document.getElementById('theme-toggle');
 const themeIcon = document.getElementById('theme-icon');
-const body = document.body;
-
 themeToggle.addEventListener('click', () => {
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
     if(isLight) {
@@ -302,6 +241,5 @@ themeToggle.addEventListener('click', () => {
     }
 });
 </script>
-
 </body>
 </html>
