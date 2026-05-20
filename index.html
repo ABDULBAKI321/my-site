@@ -16,9 +16,10 @@
     --accent: #ff003c;
     --circuit-color: rgba(255, 0, 60, 0.05);
     --shadow: rgba(255, 0, 60, 0.25);
+    --glitch-color: #00ffff;
 }
 
-/* ২. থিম: সাইবার ম্যাট্রিক্স (Cyber Matrix) */
+/* थিম: সাইবার ম্যাট্রিক্স (Cyber Matrix) */
 [data-theme="cyber-matrix"] {
     --bg-color: #001100;
     --card-bg: rgba(0, 30, 0, 0.7);
@@ -27,6 +28,7 @@
     --accent: #00ff41;
     --circuit-color: rgba(0, 255, 65, 0.05);
     --shadow: rgba(0, 255, 65, 0.25);
+    --glitch-color: #ff00ff;
 }
 
 *{
@@ -46,17 +48,22 @@ body{
 
 .container{ width:100%; max-width:850px; position: relative; }
 
-/* থিম সুইচার প্যানেল (শুধু লাল ও সবুজ ডট) */
+/* ৩. ফুচারিস্টিক কন্ট্রোল প্যানেল (থিম ও সাউন্ড টগল) */
 .theme-switch-wrapper { 
     position: absolute; top: 0; right: 0; z-index: 10; 
-    display: flex; gap: 10px; background: rgba(0,0,0,0.3);
-    padding: 8px 12px; border-radius: 20px; border: 1px solid var(--accent);
+    display: flex; gap: 8px;
 }
-.theme-dot {
-    width: 22px; height: 22px; border-radius: 50%; cursor: pointer;
-    border: 2px solid #fff; transition: 0.3s;
+.cyber-btn {
+    background: rgba(0, 0, 0, 0.6); color: var(--accent);
+    border: 1px solid var(--accent); padding: 8px 14px;
+    border-radius: 8px; font-weight: bold; font-size: 11px;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    box-shadow: 0 0 8px var(--shadow); letter-spacing: 1px;
 }
-.theme-dot:hover { transform: scale(1.2); }
+.cyber-btn:hover {
+    background: var(--accent); color: #000;
+    box-shadow: 0 0 15px var(--accent);
+}
 
 /* HEADER */
 .header-section{ display:flex; align-items:center; gap:18px; margin-top:50px; }
@@ -66,10 +73,26 @@ body{
     cursor: pointer;
 }
 .name-info { flex: 1; }
-.name-info h1{ font-size:26px; }
+
+/* ২. সাইবারপাঙ্ক গ্লিচ এফেক্ট */
+.glitch-text {
+    font-size:26px; display: inline-block; position: relative; cursor: pointer;
+}
+.glitch-text:hover {
+    animation: textGlitch 0.2s linear infinite;
+    color: #fff;
+}
+@keyframes textGlitch {
+    0% { transform: translate(0); text-shadow: 2px -2px var(--accent), -2px 2px var(--glitch-color); }
+    25% { transform: translate(-1px, 1px); text-shadow: -2px 2px var(--accent), 2px -2px var(--glitch-color); }
+    50% { transform: translate(1px, -1px); text-shadow: 2px 2px var(--accent), -2px -2px var(--glitch-color); }
+    75% { transform: translate(-1px, -1px); text-shadow: -2px -2px var(--accent), 2px 2px var(--glitch-color); }
+    100% { transform: translate(0); }
+}
+
 .subtitle{ color: var(--text-secondary); font-size:14px; }
 
-/* ৩. ঘড়ির বক্স (নামের নিচে সুন্দর ইনলাইন স্টাইল) */
+/* ঘড়ির বক্স */
 .clock-box{ 
     display: inline-flex; align-items: center; gap: 10px; 
     background: var(--card-bg); padding: 6px 14px; border-radius: 12px; 
@@ -79,13 +102,20 @@ body{
 #digital-clock{ color: var(--accent); font-weight:bold; letter-spacing:1px; font-size: 14px; }
 #day-name { font-size: 12px; color: var(--text-secondary); border-left: 1px solid var(--text-secondary); padding-left: 10px; }
 
-/* CARD */
+/* CARD & ১. ইলেকট্রিক নিয়ন গ্লোয়িং বর্ডার পালস */
 .card{ 
     background: var(--card-bg); width:100%; padding:24px; border-radius:24px; 
     margin-top:20px; box-shadow:0 10px 25px var(--shadow); 
     backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05);
 }
-.card:hover { border-color: var(--accent); }
+@keyframes neonPulse {
+    0% { box-shadow: 0 10px 25px var(--shadow), 0 0 3px var(--accent); border-color: var(--accent); }
+    50% { box-shadow: 0 10px 25px var(--shadow), 0 0 15px var(--accent); border-color: #fff; }
+    100% { box-shadow: 0 10px 25px var(--shadow), 0 0 3px var(--accent); border-color: var(--accent); }
+}
+.card:hover { 
+    animation: neonPulse 1.5s infinite ease-in-out;
+}
 
 /* TYPING EFFECT */
 #typing-intro::after { content: "|"; animation: blink 0.7s infinite; }
@@ -109,6 +139,10 @@ body{
     height: 100%; background: linear-gradient(90deg, var(--accent), #22c55e);
     border-radius: 3px; width: 0%; transition: width 2s ease-in-out;
 }
+
+/* SYSTEM STATUS WIDGET */
+.status-grid { display: flex; gap: 20px; margin-top: 10px; font-size: 14px; }
+.status-item-live { background: rgba(0,0,0,0.2); padding: 8px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
 
 /* SOCIAL GRID */
 .social-grid { display: flex; justify-content: space-between; gap: 5px; margin-top: 20px; }
@@ -140,7 +174,7 @@ body{
 @media (max-width: 500px) {
     .header-section { gap: 12px; }
     .profile-img { width: 85px; height: 85px; }
-    .name-info h1 { font-size: 22px; }
+    .glitch-text { font-size: 22px; }
 }
 </style>
 </head>
@@ -148,15 +182,19 @@ body{
 
 <div class="container">
     <div class="theme-switch-wrapper">
-        <div class="theme-dot" style="background:#ff003c;" onclick="setTheme('laser-red')" title="Laser Red"></div>
-        <div class="theme-dot" style="background:#00ff41;" onclick="setTheme('cyber-matrix')" title="Cyber Matrix"></div>
+        <button class="cyber-btn" onclick="toggleTheme()">
+            <i class="fas fa-power-off"></i> <span id="theme-label">MATRIX ON</span>
+        </button>
+        <button class="cyber-btn" onclick="toggleMute()" id="mute-btn" title="সাউন্ড অন/অফ">
+            <i class="fas fa-volume-up"></i>
+        </button>
     </div>
 
     <div class="header-section">
         <div onclick="openImage()"><img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="P" class="profile-img"></div>
         <div class="name-info">
             <p id="dynamic-greeting" style="color: var(--accent); font-weight: bold; font-size: 13px; margin-bottom: 2px;"></p>
-            <h1>মোঃ আব্দুল বাকি মিয়া</h1>
+            <h1 class="glitch-text" onmouseenter="playSound('glitch')">মোঃ আব্দুল বাকি মিয়া</h1>
             <p class="subtitle">ব্যক্তিগত পেজ</p>
             
             <div class="clock-box">
@@ -166,13 +204,21 @@ body{
         </div>
     </div>
 
-    <div class="card" style="border:1px dashed var(--accent); text-align:center;">
+    <div class="card" style="margin-top: 20px; border-style: dashed;">
+        <h2 style="font-size: 16px;">SYSTEM STATUS <i class="fas fa-terminal" style="color:var(--accent);"></i></h2>
+        <div class="status-grid">
+            <div class="status-item-live"><i class="fas fa-battery-three-quarters" style="color:var(--accent);"></i> ব্যাটারি: <span id="live-battery">লোডিং...</span></div>
+            <div class="status-item-live"><i class="fas fa-wifi" style="color:var(--accent);"></i> নেটওয়ার্ক: <span id="live-status">অনলাইন</span></div>
+        </div>
+    </div>
+
+    <div class="card" style="border:1px dashed var(--accent); text-align:center;" onmouseenter="playSound('click')">
         <p style="font-size:28px; font-weight:bold; color:var(--accent);">ঈদ মোবারক! 🌙</p>
         <div style="font-size:35px; margin:10px 0;">🐪 🐃</div>
         <p style="color:var(--accent); font-size:14px;">পবিত্র ঈদুল আযহার অগ্রিম শুভেচ্ছা! ✨</p>
     </div>
 
-    <div class="card">
+    <div class="card" onmouseenter="playSound('click')">
         <h2>ABOUT ME <i class="fas fa-bolt" style="color:var(--accent);"></i></h2>
         <p id="typing-intro" style="color:var(--text-secondary); line-height:1.6; text-transform:uppercase; font-size:14px; margin-top:10px; min-height: 45px;">
         </p>
@@ -192,7 +238,7 @@ body{
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" onmouseenter="playSound('click')">
         <h2 style="font-size: 18px; margin-bottom: 15px;">রক্তদান তথ্য <i class="fas fa-hand-holding-heart" style="color:#ef4444;"></i></h2>
         <div class="blood-stats">
             <div class="heart-icon">🫀</div>
@@ -207,7 +253,7 @@ body{
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" onmouseenter="playSound('click')">
         <h2>BIO <i class="fas fa-pen-nib" style="color:#10b981;"></i></h2>
         <p style="color:var(--text-secondary); margin-top:10px; line-height:1.5;">
         ★“নিশ্চয়ই আল্লাহ সর্বোত্তম পরিকল্পনাকারী।” 🖤<br>
@@ -217,38 +263,38 @@ body{
     <div class="card">
         <h2 style="text-align:center;">যোগাযোগ করুন 🤝</h2>
         <div class="social-grid">
-            <a href="https://www.facebook.com/Abdulbaki231" target="_blank" class="social-item">
+            <a href="https://www.facebook.com/Abdulbaki231" target="_blank" class="social-item" onmouseenter="playSound('click')">
                 <div class="icon-circle" style="color:#1877F2;"><i class="fab fa-facebook"></i></div>
                 <span>Facebook</span>
             </a>
-            <a href="https://wa.me/8801575586681" target="_blank" class="social-item">
+            <a href="https://wa.me/8801575586681" target="_blank" class="social-item" onmouseenter="playSound('click')">
                 <div class="icon-circle" style="color:#25D366;"><i class="fab fa-whatsapp"></i></div>
                 <span>WhatsApp</span>
             </a>
-            <a href="https://www.instagram.com/abdul_baki_6.5" target="_blank" class="social-item">
+            <a href="https://www.instagram.com/abdul_baki_6.5" target="_blank" class="social-item" onmouseenter="playSound('click')">
                 <div class="icon-circle" style="color:#E4405F;"><i class="fab fa-instagram"></i></div>
                 <span>Instagram</span>
             </a>
-            <a href="https://t.me/Abdul23104" target="_blank" class="social-item">
+            <a href="https://t.me/Abdul23104" target="_blank" class="social-item" onmouseenter="playSound('click')">
                 <div class="icon-circle" style="color:#0088cc;"><i class="fab fa-telegram"></i></div>
                 <span>Telegram</span>
             </a>
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" onmouseenter="playSound('click')">
         <h2>অফলাইন যোগাযোগ <i class="fas fa-phone-alt" style="color:#22c55e;"></i></h2>
-        <a href="tel:01575586681" class="call-button"><i class="fas fa-phone-volume"></i> 01575586681</a>
+        <a href="tel:01575586681" class="call-button" onclick="playSound('theme')"><i class="fas fa-phone-volume"></i> 01575586681</a>
     </div>
 
-    <div class="card">
+    <div class="card" onmouseenter="playSound('click')">
         <h2>নোট 📝</h2>
         <div class="note-box" style="margin-bottom:8px;">⭐... 😊</div>
         <div class="note-box">⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷</div>
     </div>
 
     <div class="visitor-box">
-        <i class="fas fa-users"></i> প্রোফাইল ভিজিটর: <span class="v-number" id="visitor-count">১২сно</span>
+        <i class="fas fa-users"></i> প্রোфাইল ভিজিটর: <span class="v-number" id="visitor-count">১২৫০</span>
         <p style="font-size: 10px; margin-top: 10px; opacity: 0.6;">© ২০২৬ মোঃ আব্দুল বাকি মিয়া</p>
     </div>
 </div>
@@ -258,14 +304,69 @@ body{
 </div>
 
 <script>
-// থিম পরিবর্তন এবং লোকাল স্টোরেজ সেভ
+// ৫. সাই-ফাই সাউন্ড জেনারেটর (Web Audio API)
+let isMuted = false;
+function playSound(type) {
+    if (isMuted) return;
+    try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        if (type === 'click') {
+            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+            oscillator.start(); oscillator.stop(audioCtx.currentTime + 0.08);
+        } else if (type === 'theme') {
+            oscillator.frequency.setValueAtTime(300, audioCtx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.15);
+            gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+            oscillator.start(); oscillator.stop(audioCtx.currentTime + 0.15);
+        } else if (type === 'glitch') {
+            oscillator.type = 'sawtooth';
+            oscillator.frequency.setValueAtTime(150, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(0.02, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+            oscillator.start(); oscillator.stop(audioCtx.currentTime + 0.04);
+        }
+    } catch(e) { console.log('Audio dynamic execution waiting for user gesture.'); }
+}
+
+function toggleMute() {
+    isMuted = !isMuted;
+    const icon = document.getElementById('mute-btn').querySelector('i');
+    if(isMuted) {
+        icon.className = "fas fa-volume-mute";
+    } else {
+        icon.className = "fas fa-volume-up";
+        playSound('click');
+    }
+}
+
+// থিম পরিবর্তন এবং লেবেল আপডেট
 function setTheme(themeName) {
     document.documentElement.setAttribute('data-theme', themeName);
     localStorage.setItem('userSavedTheme', themeName);
+    const label = document.getElementById('theme-label');
+    if(label) {
+        label.innerText = themeName === 'cyber-matrix' ? 'LASER ON' : 'MATRIX ON';
+    }
+}
+
+function toggleTheme() {
+    playSound('theme');
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'laser-red';
+    const nextTheme = currentTheme === 'laser-red' ? 'cyber-matrix' : 'laser-red';
+    setTheme(nextTheme);
 }
 
 // স্কিলস সেকশন টগল
 function toggleSkills() {
+    playSound('theme');
     const content = document.getElementById('skills-content');
     const arrow = document.getElementById('skill-arrow');
     const bar = document.getElementById('skill-bar');
@@ -315,18 +416,36 @@ function updateVisitors() {
     }, 7000);
 }
 
+// ৪. রিয়েল টাইম ডিভাইস স্ট্যাটাস লজিক
+function initSystemStatus() {
+    if (navigator.getBattery) {
+        navigator.getBattery().then(function(battery) {
+            function updateBatteryInfo() {
+                document.getElementById('live-battery').innerText = Math.round(battery.level * 100) + '%';
+            }
+            updateBatteryInfo();
+            battery.addEventListener('levelchange', updateBatteryInfo);
+        });
+    } else {
+        document.getElementById('live-battery').innerText = 'অসমর্থিত';
+    }
+
+    window.addEventListener('online', () => document.getElementById('live-status').innerText = 'অনলাইন');
+    window.addEventListener('offline', () => document.getElementById('live-status').innerText = 'অফলাইন');
+}
+
 // পেজ লোড হওয়ার পর এক্সিকিউশন
 window.onload = () => {
-    // সেভ করা থিম লোড (ডিফল্ট লেজার রেড)
     const savedTheme = localStorage.getItem('userSavedTheme') || 'laser-red';
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    setTheme(savedTheme);
     
     typeIntro();
     animateBlood();
     updateVisitors();
+    initSystemStatus();
 };
 
-// ১. অটোমেটিক সঠিক টাইম টেবিল সেটআপ ("শুভ" ছাড়া)
+// অটোমেটিক সঠিক টাইম টেবিল সেটআপ ("শুভ" ছাড়া)
 const hour = new Date().getHours();
 const greetingEl = document.getElementById('dynamic-greeting');
 if(hour >= 5 && hour < 12) greetingEl.innerText = "সকাল! ☀️";
@@ -337,17 +456,16 @@ else greetingEl.innerText = "রাত! 🌙";
 function openImage(){ document.getElementById('imageOverlay').style.display='flex'; }
 function closeImage(){ document.getElementById('imageOverlay').style.display='none'; }
 
-// ৪. ১২ ঘণ্টার ক্লক ফরম্যাট লজিক
+// ১২ ঘণ্টার ক্লক ফরম্যাট লজিক
 function updateClock(){
     const now = new Date();
     let hours = now.getHours();
     let minutes = String(now.getMinutes()).padStart(2, '0');
     let seconds = String(now.getSeconds()).padStart(2, '0');
     
-    // ১২ ঘণ্টার কনভার্সন এবং AM/PM সেটআপ
     let ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
-    hours = hours ? hours : 12; // '0' ঘণ্টা হলে সেটা '12' দেখাবে
+    hours = hours ? hours : 12; 
     let h = String(hours).padStart(2, '0');
     
     const days = ["রবিবার","সোমবার","মঙ্গলবার","বুধবার","বৃহস্পতিবার","শুক্রবার","শনিবার"];
