@@ -7,30 +7,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* --- থিম ভেরিয়েবলস (ডিফল্ট: ভোল্টেজ গোল্ড) --- */
+/* --- থিম ভেরিয়েবলস (ডিফল্ট: লেজার রেড) --- */
 :root {
-    --bg-color: #0f172a;
-    --card-bg: rgba(30, 41, 59, 0.7);
-    --text-primary: #ffffff;
-    --text-secondary: #94a3b8;
-    --accent: #f59e0b;
-    --circuit-color: rgba(245, 158, 11, 0.05);
-    --shadow: rgba(245, 158, 11, 0.15);
-}
-
-/* ২. থিম: লাইট মোড */
-[data-theme="light"] {
-    --bg-color: #f1f5f9;
-    --card-bg: rgba(255, 255, 255, 0.8);
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --accent: #0ea5e9;
-    --circuit-color: rgba(14, 165, 233, 0.05);
-    --shadow: rgba(14, 165, 233, 0.2);
-}
-
-/* ২. থিম: লেজার রেড (Laser Red) */
-[data-theme="laser-red"] {
     --bg-color: #110000;
     --card-bg: rgba(40, 10, 10, 0.7);
     --text-primary: #ffffff;
@@ -68,7 +46,7 @@ body{
 
 .container{ width:100%; max-width:850px; position: relative; }
 
-/* থিম সুইচার প্যানেল */
+/* থিম সুইচার প্যানেল (শুধু লাল ও সবুজ ডট) */
 .theme-switch-wrapper { 
     position: absolute; top: 0; right: 0; z-index: 10; 
     display: flex; gap: 10px; background: rgba(0,0,0,0.3);
@@ -87,13 +65,19 @@ body{
     border:3px solid var(--accent); box-shadow:0 0 15px var(--accent); 
     cursor: pointer;
 }
-
+.name-info { flex: 1; }
 .name-info h1{ font-size:26px; }
-.subtitle{ color: var(--text-secondary); font-size:14px; margin-bottom:10px; }
+.subtitle{ color: var(--text-secondary); font-size:14px; }
 
-/* CLOCK */
-.clock-box{ display:inline-flex; align-items:center; gap:10px; background: var(--card-bg); padding:8px 15px; border-radius:12px; border:1px solid var(--accent); backdrop-filter: blur(10px); }
-#digital-clock{ color: var(--accent); font-weight:bold; letter-spacing:1px; }
+/* ৩. ঘড়ির বক্স (নামের নিচে সুন্দর ইনলাইন স্টাইল) */
+.clock-box{ 
+    display: inline-flex; align-items: center; gap: 10px; 
+    background: var(--card-bg); padding: 6px 14px; border-radius: 12px; 
+    border: 1px solid var(--accent); backdrop-filter: blur(10px); 
+    box-shadow: 0 4px 12px var(--shadow); margin-top: 8px;
+}
+#digital-clock{ color: var(--accent); font-weight:bold; letter-spacing:1px; font-size: 14px; }
+#day-name { font-size: 12px; color: var(--text-secondary); border-left: 1px solid var(--text-secondary); padding-left: 10px; }
 
 /* CARD */
 .card{ 
@@ -101,22 +85,19 @@ body{
     margin-top:20px; box-shadow:0 10px 25px var(--shadow); 
     backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05);
 }
-.card:hover { border-color: var(--accent); } /* হোভার ইফেক্ট */
+.card:hover { border-color: var(--accent); }
 
 /* TYPING EFFECT */
 #typing-intro::after { content: "|"; animation: blink 0.7s infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* ১. ব্লাড কাউন্টার ও হার্ট ইমোজি 🫀 */
+/* ব্লাড কাউন্টার */
 .blood-stats {
     display: flex; align-items: center; justify-content: space-around;
     padding: 10px; background: rgba(239, 68, 68, 0.1); border-radius: 15px;
 }
 .counter-number { font-size: 40px; font-weight: bold; color: #ef4444; }
-.heart-icon { 
-    animation: beat 1s infinite; 
-    font-size: 38px; display: inline-block; 
-}
+.heart-icon { animation: beat 1s infinite; font-size: 38px; display: inline-block; }
 @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
 /* BATTERY */
@@ -155,14 +136,18 @@ body{
     color:white; text-decoration:none; padding:16px; border-radius:16px;
     font-weight:bold; margin-top:15px; font-size:20px;
 }
+
+@media (max-width: 500px) {
+    .header-section { gap: 12px; }
+    .profile-img { width: 85px; height: 85px; }
+    .name-info h1 { font-size: 22px; }
+}
 </style>
 </head>
 <body>
 
 <div class="container">
     <div class="theme-switch-wrapper">
-        <div class="theme-dot" style="background:#f59e0b;" onclick="setTheme('default')" title="Voltage Gold"></div>
-        <div class="theme-dot" style="background:#0ea5e9;" onclick="setTheme('light')" title="Light Mode"></div>
         <div class="theme-dot" style="background:#ff003c;" onclick="setTheme('laser-red')" title="Laser Red"></div>
         <div class="theme-dot" style="background:#00ff41;" onclick="setTheme('cyber-matrix')" title="Cyber Matrix"></div>
     </div>
@@ -170,12 +155,13 @@ body{
     <div class="header-section">
         <div onclick="openImage()"><img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="P" class="profile-img"></div>
         <div class="name-info">
-            <p id="dynamic-greeting" style="color: var(--accent); font-weight: bold; font-size: 13px;"></p>
+            <p id="dynamic-greeting" style="color: var(--accent); font-weight: bold; font-size: 13px; margin-bottom: 2px;"></p>
             <h1>মোঃ আব্দুল বাকি মিয়া</h1>
             <p class="subtitle">ব্যক্তিগত পেজ</p>
+            
             <div class="clock-box">
-                <div id="digital-clock">00:00:00</div>
-                <div id="day-name" style="color:var(--text-secondary); font-size:12px;">শনিবার</div>
+                <div id="digital-clock">12:00:00 AM</div>
+                <div id="day-name">শনিবার</div>
             </div>
         </div>
     </div>
@@ -257,12 +243,12 @@ body{
 
     <div class="card">
         <h2>নোট 📝</h2>
-        <div class="note-box">⭐... 😊</div>
+        <div class="note-box" style="margin-bottom:8px;">⭐... 😊</div>
         <div class="note-box">⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷</div>
     </div>
 
     <div class="visitor-box">
-        <i class="fas fa-users"></i> প্রোফাইল ভিজিটর: <span class="v-number" id="visitor-count">১২৫০</span>
+        <i class="fas fa-users"></i> প্রোফাইল ভিজিটর: <span class="v-number" id="visitor-count">১২сно</span>
         <p style="font-size: 10px; margin-top: 10px; opacity: 0.6;">© ২০২৬ মোঃ আব্দুল বাকি মিয়া</p>
     </div>
 </div>
@@ -272,13 +258,13 @@ body{
 </div>
 
 <script>
-// ৪. থিম পরিবর্তন এবং লোকাল স্টোরেজ সেভ করা
+// থিম পরিবর্তন এবং লোকাল স্টোরেজ সেভ
 function setTheme(themeName) {
     document.documentElement.setAttribute('data-theme', themeName);
     localStorage.setItem('userSavedTheme', themeName);
 }
 
-// ৩. স্কিলস সেকশন টগল (হাইড/শো)
+// স্কিলস সেকশন টগল
 function toggleSkills() {
     const content = document.getElementById('skills-content');
     const arrow = document.getElementById('skill-arrow');
@@ -287,11 +273,11 @@ function toggleSkills() {
     if(content.style.display === 'none') {
         content.style.display = 'block';
         arrow.style.transform = 'rotate(180deg)';
-        setTimeout(() => { bar.style.width = "98%"; }, 100); // খুললে চার্জ হবে
+        setTimeout(() => { bar.style.width = "98%"; }, 100);
     } else {
         content.style.display = 'none';
         arrow.style.transform = 'rotate(0deg)';
-        bar.style.width = "0%"; // বন্ধ করলে জিরো হবে
+        bar.style.width = "0%";
     }
 }
 
@@ -329,35 +315,43 @@ function updateVisitors() {
     }, 7000);
 }
 
-// পেজ লোড হওয়ার পর সবকিছু রান করা
+// পেজ লোড হওয়ার পর এক্সিকিউশন
 window.onload = () => {
-    // সেভ করা থিম লোড করা
-    const savedTheme = localStorage.getItem('userSavedTheme') || 'default';
-    if(savedTheme !== 'default') {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-    }
+    // সেভ করা থিম লোড (ডিফল্ট লেজার রেড)
+    const savedTheme = localStorage.getItem('userSavedTheme') || 'laser-red';
+    document.documentElement.setAttribute('data-theme', savedTheme);
     
     typeIntro();
     animateBlood();
     updateVisitors();
 };
 
+// ১. অটোমেটিক সঠিক টাইম টেবিল সেটআপ ("শুভ" ছাড়া)
 const hour = new Date().getHours();
 const greetingEl = document.getElementById('dynamic-greeting');
-if(hour < 12) greetingEl.innerText = "শুভ সকাল! ☀️";
-else if(hour < 17) greetingEl.innerText = "শুভ দুপুর! 🌤️";
-else greetingEl.innerText = "শুভ সন্ধ্যা! 🌙";
+if(hour >= 5 && hour < 12) greetingEl.innerText = "সকাল! ☀️";
+else if(hour >= 12 && hour < 16) greetingEl.innerText = "দুপুর! 🌤️";
+else if(hour >= 16 && hour < 18) greetingEl.innerText = "বিকেল! 🍃";
+else greetingEl.innerText = "রাত! 🌙";
 
 function openImage(){ document.getElementById('imageOverlay').style.display='flex'; }
 function closeImage(){ document.getElementById('imageOverlay').style.display='none'; }
 
+// ৪. ১২ ঘণ্টার ক্লক ফরম্যাট লজিক
 function updateClock(){
     const now = new Date();
-    let h = String(now.getHours()).padStart(2,'0');
-    let m = String(now.getMinutes()).padStart(2,'0');
-    let s = String(now.getSeconds()).padStart(2,'0');
+    let hours = now.getHours();
+    let minutes = String(now.getMinutes()).padStart(2, '0');
+    let seconds = String(now.getSeconds()).padStart(2, '0');
+    
+    // ১২ ঘণ্টার কনভার্সন এবং AM/PM সেটআপ
+    let ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // '0' ঘণ্টা হলে সেটা '12' দেখাবে
+    let h = String(hours).padStart(2, '0');
+    
     const days = ["রবিবার","সোমবার","মঙ্গলবার","বুধবার","বৃহস্পতিবার","শুক্রবার","শনিবার"];
-    document.getElementById("digital-clock").innerHTML = `${h}:${m}:${s}`;
+    document.getElementById("digital-clock").innerHTML = `${h}:${minutes}:${seconds} ${ampm}`;
     document.getElementById("day-name").innerHTML = days[now.getDay()];
 }
 setInterval(updateClock,1000); updateClock();
