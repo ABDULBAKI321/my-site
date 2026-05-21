@@ -87,7 +87,7 @@ body{
 
 .subtitle{ color: var(--text-secondary); font-size:14px; }
 
-/* ঘড়ির বক্স */
+/* ঘড়ির باکس */
 .clock-box{ 
     display: inline-flex; align-items: center; gap: 10px; 
     background: var(--card-bg); padding: 6px 14px; border-radius: 12px; 
@@ -97,7 +97,7 @@ body{
 #digital-clock{ color: var(--accent); font-weight:bold; letter-spacing:1px; font-size: 14px; }
 #day-name { font-size: 12px; color: var(--text-secondary); border-left: 1px solid var(--text-secondary); padding-left: 10px; }
 
-/* CARD & ১. লাইভ নিয়ন গ্লোয়িং বর্ডার পালস (সবসময় হালকা জ্বলবে, টাচ করলে বাড়বে) */
+/* CARD & ১. লাইভ নিয়ন গ্লোয়িং বর্ডার পালস */
 .card{ 
     background: var(--card-bg); width:100%; padding:24px; border-radius:24px; 
     margin-top:20px; box-shadow:0 10px 25px var(--shadow); 
@@ -150,6 +150,31 @@ body{
 }
 .social-item span { color: var(--text-secondary); font-size: 11px; }
 
+/* GUESTBOOK CSS */
+.guestbook-input {
+    width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--accent); 
+    padding: 12px; border-radius: 10px; color: #fff; font-family: inherit; 
+    margin-bottom: 10px; outline: none; font-size: 14px;
+}
+.guestbook-input:focus {
+    box-shadow: 0 0 10px var(--shadow);
+}
+#comments-container {
+    margin-top: 15px; max-height: 250px; overflow-y: auto; 
+    display: flex; flex-direction: column; gap: 10px; padding-right: 5px;
+}
+#comments-container::-webkit-scrollbar { width: 4px; }
+#comments-container::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+.comment-item {
+    background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 12px; 
+    border-left: 3px solid var(--accent); animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+.comment-header { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; }
+.comment-user { font-weight: bold; color: var(--accent); }
+.comment-time { color: var(--text-secondary); opacity: 0.6; }
+.comment-body { font-size: 13px; color: var(--text-primary); line-height: 1.4; }
+
 /* VISITOR COUNTER */
 .visitor-box {
     text-align: center; margin-top: 30px; padding: 15px;
@@ -176,7 +201,7 @@ body{
 </head>
 <body>
 
-<div class="container">
+<div class="container" id="main-container">
     <div class="theme-switch-wrapper">
         <button class="cyber-btn" onclick="toggleTheme()">
             <i class="fas fa-power-off"></i> <span id="theme-label">MATRIX ON</span>
@@ -284,6 +309,19 @@ body{
     </div>
 
     <div class="card" onclick="playSound('click')">
+        <h2>ಗೆস্টবুক / লাইভ কমেন্ট <i class="fas fa-comments" style="color:var(--accent);"></i></h2>
+        <form id="guestbook-form" onsubmit="submitComment(event)" style="margin-top: 15px;">
+            <input type="text" id="guest-name" class="guestbook-input" placeholder="আপনার নাম লিখুন..." required>
+            <textarea id="guest-msg" class="guestbook-input" rows="3" placeholder="একটি সুন্দর মন্তব্য রেখে যান..." style="resize: none;" required></textarea>
+            <button type="submit" class="cyber-btn" style="width: 100%; justify-content: center; padding: 12px;">
+                <i class="fas fa-paper-plane"></i> পোস্ট করুন
+            </button>
+        </form>
+        <div id="comments-container">
+            </div>
+    </div>
+
+    <div class="card" onclick="playSound('click')">
         <h2>নোট 📝</h2>
         <div class="note-box" style="margin-bottom:8px;">⭐... 😊</div>
         <div class="note-box">⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷</div>
@@ -300,12 +338,29 @@ body{
 </div>
 
 <script>
-// ৫. সাই-ফাই সাউন্ড জেনারেটর (Web Audio API)
+// সাউন্ড জেনারেটর ফিক্স (একক AudioContext রিসোর্স লজিক)
+let audioCtx = null;
 let isMuted = false;
+
+function initAudioContext() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+}
+
+// যে কোনো জায়গায় প্রথম টাচ/ক্লিক করলেই ব্রাউজার সাউন্ড ব্লক তুলে নেবে
+document.addEventListener('click', initAudioContext, { once: true });
+document.addEventListener('touchstart', initAudioContext, { once: true });
+
 function playSound(type) {
     if (isMuted) return;
+    initAudioContext();
+    if (!audioCtx || audioCtx.state === 'suspended') return;
+
     try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const oscillator = audioCtx.createOscillator();
         const gainNode = audioCtx.createGain();
         oscillator.connect(gainNode);
@@ -325,11 +380,11 @@ function playSound(type) {
         } else if (type === 'glitch') {
             oscillator.type = 'sawtooth';
             oscillator.frequency.setValueAtTime(120, audioCtx.currentTime);
-            gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(0.02, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
             oscillator.start(); oscillator.stop(audioCtx.currentTime + 0.05);
         }
-    } catch(e) { console.log('Audio Context blocked until click.'); }
+    } catch(e) { console.log('Audio error handled safely.'); }
 }
 
 function toggleMute() {
@@ -423,12 +478,65 @@ function initSystemStatus() {
             battery.addEventListener('levelchange', updateBatteryInfo);
         });
     } else {
-        // ফলব্যাক স্ট্যাটাস যদি ব্রাউজার পারমিশন ব্লক করে
         document.getElementById('live-battery').innerText = 'সক্রিয় ✔';
     }
 
     window.addEventListener('online', () => document.getElementById('live-status').innerText = 'অনলাইন');
     window.addEventListener('offline', () => document.getElementById('live-status').innerText = 'অফলাইন');
+}
+
+// গেস্টবুক ডাটা প্রসেসিং লজিক (LocalStorage ভিত্তিক)
+function loadComments() {
+    const container = document.getElementById('comments-container');
+    container.innerHTML = '';
+    
+    // ডিফল্ট ডেমো কমেন্ট যদি কোনো কমেন্ট সেভ করা না থাকে
+    let comments = JSON.parse(localStorage.getItem('cyber_portfolio_comments')) || [
+        { name: "শুভাকাঙ্ক্ষী", msg: "আপনার ওয়েবসাইটের নিওন ডার্ক থিমটি জাস্ট অসাধারণ হয়েছে ভাই! 🔥", time: "২২ মে, ২০২৬" }
+    ];
+    
+    comments.forEach(c => {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment-item';
+        commentDiv.innerHTML = `
+            <div class="comment-header">
+                <span class="comment-user">${c.name}</span>
+                <span class="comment-time">${c.time}</span>
+            </div>
+            <div class="comment-body">${c.msg}</div>
+        `;
+        container.appendChild(commentDiv);
+    });
+}
+
+function submitComment(event) {
+    event.preventDefault();
+    playSound('click');
+    
+    const nameInput = document.getElementById('guest-name');
+    const msgInput = document.getElementById('guest-msg');
+    
+    const newComment = {
+        name: nameInput.value,
+        msg: msgInput.value,
+        time: new Date().toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' })
+    };
+    
+    let comments = JSON.parse(localStorage.getItem('cyber_portfolio_comments')) || [
+        { name: "শুভাকাঙ্ক্ষী", msg: "আপনার ওয়েবসাইটের নিওন ডার্ক থিমটি জাস্ট অসাধারণ হয়েছে ভাই! 🔥", time: "২২ মে, ২০২৬" }
+    ];
+    
+    comments.unshift(newComment); // নতুন কমেন্ট সবার ওপরে থাকবে
+    localStorage.setItem('cyber_portfolio_comments', JSON.stringify(comments));
+    
+    nameInput.value = '';
+    msgInput.value = '';
+    
+    loadComments();
+    
+    /* ভবিষ্যতে ফায়ারবেস বা ডাটাবেজ এড করতে চাইলে কোডটি এমন হবে:
+    database.ref('comments').push(newComment);
+    */
 }
 
 // পেজ লোড হওয়ার পর এক্সিকিউশন
@@ -440,10 +548,11 @@ window.onload = () => {
     animateBlood();
     updateVisitors();
     initSystemStatus();
+    loadComments(); // কমেন্ট লোড করার কল
     
-    // ২. প্রতি ৩ সেকেন্ড পর পর হালকা সাউন্ডসহ অটো গ্লিচ ট্রিগার
+    // ২. প্রতি ৪ সেকেন্ড পর পর হালকা সাউন্ডসহ অটো গ্লিচ ট্রিগার (ইউজার ইন্টারঅ্যাকশনের পর কার্যকর হবে)
     setInterval(() => {
-        if(!isMuted) playSound('glitch');
+        if(!isMuted && audioCtx && audioCtx.state !== 'suspended') playSound('glitch');
     }, 4000);
 };
 
