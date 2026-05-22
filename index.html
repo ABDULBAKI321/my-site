@@ -188,13 +188,18 @@ body{
 .reply-title { font-size: 11px; color: var(--accent); font-weight: bold; margin-bottom: 2px; }
 .reply-text { font-size: 12.5px; color: var(--text-primary); }
 
-/* সিক্রেট রিপ্লাই বাটন */
-.secret-reply-btn {
+/* অ্যাকশন বাটন এরিয়া (Reply & Delete এর জন্য) */
+.admin-actions {
+    display: flex; gap: 10px; margin-top: 6px;
+}
+.secret-btn {
     background: transparent; border: 1px solid var(--accent); color: var(--accent);
     padding: 2px 8px; font-size: 11px; border-radius: 4px; cursor: pointer;
-    margin-top: 6px; align-self: flex-start; display: none; /* ডিফল্ট হাইড */
+    display: none; /* ডিফল্ট হাইড */
 }
-.secret-reply-btn:hover { background: var(--accent); color: #000; }
+.secret-btn:hover { background: var(--accent); color: #000; }
+.secret-delete-btn { border-color: #ef4444; color: #ef4444; }
+.secret-delete-btn:hover { background: #ef4444; color: #fff; }
 
 /* VISITOR COUNTER */
 .visitor-box {
@@ -376,7 +381,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// 🤫 আপনার জন্য গোপন এডমিন কোড। নাম বক্সে এটি লিখলেই কেবল Reply বাটন ভেসে উঠবে।
+// 🤫 আপনার জন্য গোপন এডমিন কোড। নাম বক্সে এটি লিখলেই কেবল Reply ও Delete বাটন ভেসে উঠবে।
 const ADMIN_CODE = "baki123"; 
 let currentTypedName = "";
 
@@ -394,7 +399,7 @@ database.ref('comments').on('value', (snapshot) => {
     renderLiveComments();
 });
 
-// লাইভ কমেন্ট ও এডমিন রিপ্লাই স্ক্রিনে রেন্ডার করার মেইন ফাংশন
+// লাইভ কমেন্ট, এডমিন রিপ্লাই ও ডিলিট বাটন রেন্ডার করার মেইন ফাংশন
 function renderLiveComments() {
     const container = document.getElementById('comments-container');
     container.innerHTML = '';
@@ -425,10 +430,14 @@ function renderLiveComments() {
                 `;
             }
 
-            // 🔒 এডমিন কন্ডিশন: নাম বক্সে কোডটি লিখলেই শুধু বাটন ডিসপ্লে ব্লক (সচল) হবে
+            // 🔒 এডমিন কন্ডিশন: নাম বক্সে কোডটি লিখলেই শুধু বাটন দুটি ডিসপ্লে ব্লক (সচল) হবে
             const btnStyle = (currentTypedName === ADMIN_CODE) ? 'style="display: block;"' : 'style="display: none;"';
+            
             htmlBlock += `
-                <button class="secret-reply-btn" ${btnStyle} onclick="submitAdminReply('${key}')"><i class="fas fa-reply"></i> Reply</button>
+                <div class="admin-actions">
+                    <button class="secret-btn" ${btnStyle} onclick="submitAdminReply('${key}')"><i class="fas fa-reply"></i> Reply</button>
+                    <button class="secret-btn secret-delete-btn" ${btnStyle} onclick="deleteComment('${key}')"><i class="fas fa-trash-alt"></i> Delete</button>
+                </div>
             `;
 
             commentDiv.innerHTML = htmlBlock;
@@ -469,7 +478,7 @@ function submitComment(event) {
         });
 }
 
-// 👑 এডমিন রিপ্লাই উইন্ডো পপআপ এবং ডাটাবেজ আপডেট লজিক
+// 👑 এডমিন রিপ্লাই লজিক
 function submitAdminReply(commentId) {
     const adminText = prompt("এই কমেন্টের উত্তর (Reply) লিখুন:");
     if (adminText && adminText.trim() !== "") {
@@ -482,6 +491,19 @@ function submitAdminReply(commentId) {
         .catch(() => {
             alert("দুঃখিত, ত্রুটি হয়েছে।");
         });
+    }
+}
+
+// 👑 খারাপ কমেন্ট ডিলিট করার এডমিন ফাংশন
+function deleteComment(commentId) {
+    if (confirm("আপনি কি নিশ্চিত যে এই কমেন্টটি চিরতরে ডিলিট করতে চান?")) {
+        database.ref('comments/' + commentId).remove()
+            .then(() => {
+                alert("কমেন্টটি ডাটাবেজ থেকে সফলভাবে ডিলিট করা হয়েছে! 🗑");
+            })
+            .catch(() => {
+                alert("ডিলিট করতে সমস্যা হয়েছে।");
+            });
     }
 }
 
