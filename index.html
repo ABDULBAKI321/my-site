@@ -6,6 +6,9 @@
 <title>মোঃ আব্দুল বাকি মিয়া - প্রোফাইল</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
 <style>
 /* --- থিম ভেরিয়েবলস (ডিফল্ট: লেজার রেড) --- */
 :root {
@@ -74,7 +77,7 @@ body{
 }
 .name-info { flex: 1; }
 
-/* ২. সাইবারপাঙ্ক অটো-গ্লিচ এফেক্ট (মোবাইলের জন্য স্বয়ংক্রিয় করা হয়েছে) */
+/* ২. সাইবারপাঙ্ক অটো-গ্লিচ এফেক্ট */
 .glitch-text {
     font-size:26px; display: inline-block; position: relative; cursor: pointer;
     animation: autoGlitch 4s infinite;
@@ -160,20 +163,38 @@ body{
     box-shadow: 0 0 10px var(--shadow);
 }
 #comments-container {
-    margin-top: 15px; max-height: 250px; overflow-y: auto; 
-    display: flex; flex-direction: column; gap: 10px; padding-right: 5px;
+    margin-top: 15px; max-height: 320px; overflow-y: auto; 
+    display: flex; flex-direction: column; gap: 12px; padding-right: 5px;
 }
 #comments-container::-webkit-scrollbar { width: 4px; }
 #comments-container::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
 .comment-item {
     background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 12px; 
     border-left: 3px solid var(--accent); animation: fadeIn 0.4s ease;
+    display: flex; flex-direction: column; gap: 4px;
 }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-.comment-header { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; }
+.comment-header { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 2px; }
 .comment-user { font-weight: bold; color: var(--accent); }
 .comment-time { color: var(--text-secondary); opacity: 0.6; }
-.comment-body { font-size: 13px; color: var(--text-primary); line-height: 1.4; }
+.comment-body { font-size: 13px; color: var(--text-primary); line-height: 1.4; word-break: break-word; }
+
+/* অ্যাডমিন রিপ্লাই স্টাইল বক্স */
+.admin-reply-box {
+    background: rgba(255, 0, 60, 0.04); border-left: 2px dashed var(--accent);
+    margin-top: 8px; padding: 6px 10px; border-radius: 0 8px 8px 0;
+}
+.reply-title { font-size: 11px; color: var(--accent); font-weight: bold; margin-bottom: 2px; }
+.reply-text { font-size: 12.5px; color: var(--text-primary); }
+
+/* সিক্রেট রিপ্লাই বাটন */
+.secret-reply-btn {
+    background: transparent; border: 1px solid var(--accent); color: var(--accent);
+    padding: 2px 8px; font-size: 11px; border-radius: 4px; cursor: pointer;
+    margin-top: 6px; align-self: flex-start; display: none; /* ডিফল্ট হাইড */
+}
+.secret-reply-btn:hover { background: var(--accent); color: #000; }
 
 /* VISITOR COUNTER */
 .visitor-box {
@@ -318,7 +339,8 @@ body{
             </button>
         </form>
         <div id="comments-container">
-            </div>
+            <div style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 10px;">লোডিং হচ্ছে...</div>
+        </div>
     </div>
 
     <div class="card" onclick="playSound('click')">
@@ -328,7 +350,7 @@ body{
     </div>
 
     <div class="visitor-box">
-        <i class="fas fa-users"></i> প্রোফাইল ভিজিটর: <span class="v-number" id="visitor-count">১২৫০</span>
+        <i class="fas fa-users"></i> প্রোফাইল ভিজিটর: <span class="v-number" id="visitor-count">১২さと</span>
         <p style="font-size: 10px; margin-top: 10px; opacity: 0.6;">© ২০২৬ মোঃ আব্দুল বাকি মিয়া</p>
     </div>
 </div>
@@ -338,7 +360,136 @@ body{
 </div>
 
 <script>
-// সাউন্ড জেনারেটর ফিক্স (একক AudioContext রিসোর্স লজিক)
+// --- ফায়ারবেস কনফিগারেশন সেটিংস ---
+const firebaseConfig = {
+  apiKey: "AIzaSyDabjlyaiskMT-LJQeWG43Ax8V-SNxUi1k",
+  authDomain: "my-site-db-3d5b2.firebaseapp.com",
+  databaseURL: "https://my-site-db-3d5b2-default-rtdb.firebaseio.com",
+  projectId: "my-site-db-3d5b2",
+  storageBucket: "my-site-db-3d5b2.firebasestorage.app",
+  messagingSenderId: "387617185016",
+  appId: "1:387617185016:web:03ade413455e5d02986f0d",
+  measurementId: "G-K3LX28PNBF"
+};
+
+// ফায়ারবেস ইনিশিয়ালাইজ করা
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// 🤫 আপনার জন্য গোপন এডমিন কোড। নাম বক্সে এটি লিখলেই কেবল Reply বাটন ভেসে উঠবে।
+const ADMIN_CODE = "baki123"; 
+let currentTypedName = "";
+
+// ইনপুট বক্স ট্র্যাক করা (রিয়েলটাইম বাটন শো/হাইড করার জন্য)
+document.getElementById('guest-name').addEventListener('input', (e) => {
+    currentTypedName = e.target.value.trim();
+    renderLiveComments(); 
+});
+
+let firebaseCommentsCache = {};
+
+// ফায়ারবেস থেকে রিয়েলটাইম লাইভ ডাটা লোড
+database.ref('comments').on('value', (snapshot) => {
+    firebaseCommentsCache = snapshot.val() || {};
+    renderLiveComments();
+});
+
+// লাইভ কমেন্ট ও এডমিন রিপ্লাই স্ক্রিনে রেন্ডার করার মেইন ফাংশন
+function renderLiveComments() {
+    const container = document.getElementById('comments-container');
+    container.innerHTML = '';
+    
+    const keys = Object.keys(firebaseCommentsCache).reverse(); // নতুন কমেন্ট ওপরে দেখাবে
+    
+    if (keys.length > 0) {
+        keys.forEach(key => {
+            const c = firebaseCommentsCache[key];
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment-item';
+            
+            let htmlBlock = `
+                <div class="comment-header">
+                    <span class="comment-user">${escapeHtml(c.name)}</span>
+                    <span class="comment-time">${c.time}</span>
+                </div>
+                <div class="comment-body">${escapeHtml(c.msg)}</div>
+            `;
+
+            // যদি এই কমেন্টে অলরেডি কোনো এডমিন রিপ্লাই সেভ করা থাকে
+            if (c.reply) {
+                htmlBlock += `
+                    <div class="admin-reply-box">
+                        <div class="reply-title"><i class="fas fa-user-shield"></i> মোঃ আব্দুল বাকি মিয়া (Admin)</div>
+                        <div class="reply-text">${escapeHtml(c.reply)}</div>
+                    </div>
+                `;
+            }
+
+            // 🔒 এডমিন কন্ডিশন: নাম বক্সে কোডটি লিখলেই শুধু বাটন ডিসপ্লে ব্লক (সচল) হবে
+            const btnStyle = (currentTypedName === ADMIN_CODE) ? 'style="display: block;"' : 'style="display: none;"';
+            htmlBlock += `
+                <button class="secret-reply-btn" ${btnStyle} onclick="submitAdminReply('${key}')"><i class="fas fa-reply"></i> Reply</button>
+            `;
+
+            commentDiv.innerHTML = htmlBlock;
+            container.appendChild(commentDiv);
+        });
+    } else {
+        container.innerHTML = `<div style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 10px;">এখনো কোনো মন্তব্য নেই। প্রথম মন্তব্যটি করুন! 😊</div>`;
+    }
+}
+
+// নতুন কমেন্ট পুশ লজিক
+function submitComment(event) {
+    event.preventDefault();
+    playSound('click');
+    
+    const nameInput = document.getElementById('guest-name');
+    const msgInput = document.getElementById('guest-msg');
+    
+    let senderName = nameInput.value.trim();
+    if (senderName === ADMIN_CODE) {
+        senderName = "মোঃ আব্দুল বাকি মিয়া (Admin) 👑";
+    }
+    
+    const newComment = {
+        name: senderName,
+        msg: msgInput.value,
+        time: new Date().toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' })
+    };
+    
+    database.ref('comments').push(newComment)
+        .then(() => {
+            nameInput.value = '';
+            msgInput.value = '';
+            currentTypedName = "";
+        })
+        .catch(() => {
+            alert("কমেন্ট সেভ হতে সমস্যা হয়েছে।");
+        });
+}
+
+// 👑 এডমিন রিপ্লাই উইন্ডো পপআপ এবং ডাটাবেজ আপডেট লজিক
+function submitAdminReply(commentId) {
+    const adminText = prompt("এই কমেন্টের উত্তর (Reply) লিখুন:");
+    if (adminText && adminText.trim() !== "") {
+        database.ref('comments/' + commentId).update({
+            reply: adminText.trim()
+        })
+        .then(() => {
+            alert("রিপ্লাই পোস্ট সফল হয়েছে!");
+        })
+        .catch(() => {
+            alert("দুঃখিত, ত্রুটি হয়েছে।");
+        });
+    }
+}
+
+function escapeHtml(text) {
+    return text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// --- আপনার আগের বাকি সকল স্ক্রিপ্ট লজিক (অপরিবর্তিত) ---
 let audioCtx = null;
 let isMuted = false;
 
@@ -351,7 +502,6 @@ function initAudioContext() {
     }
 }
 
-// যে কোনো জায়গায় প্রথম টাচ/ক্লিক করলেই ব্রাউজার সাউন্ড ব্লক তুলে নেবে
 document.addEventListener('click', initAudioContext, { once: true });
 document.addEventListener('touchstart', initAudioContext, { once: true });
 
@@ -398,7 +548,6 @@ function toggleMute() {
     }
 }
 
-// থিম পরিবর্তন এবং লেবেল আপডেট
 function setTheme(themeName) {
     document.documentElement.setAttribute('data-theme', themeName);
     localStorage.setItem('userSavedTheme', themeName);
@@ -415,7 +564,6 @@ function toggleTheme() {
     setTheme(nextTheme);
 }
 
-// স্কিলস সেকশন টগল
 function toggleSkills() {
     playSound('theme');
     const content = document.getElementById('skills-content');
@@ -433,7 +581,6 @@ function toggleSkills() {
     }
 }
 
-// টাইপিং ইফেক্ট
 const introText = "I AM MD. ABDUL BAKI MIA, AN ELECTRICAL ENGINEERING STUDENT WITH A PASSION FOR TECHNOLOGY.";
 let textIdx = 0;
 function typeIntro() {
@@ -444,7 +591,6 @@ function typeIntro() {
     }
 }
 
-// রক্তদান কাউন্টার
 function animateBlood() {
     let current = 0;
     const target = 4;
@@ -457,7 +603,6 @@ function animateBlood() {
     }, 400);
 }
 
-// ভিজিটর আপডেট
 function updateVisitors() {
     const el = document.getElementById('visitor-count');
     let count = 1250; 
@@ -467,7 +612,6 @@ function updateVisitors() {
     }, 7000);
 }
 
-// ৪. লাইভ ডিভাইস স্ট্যাটাস লজিক
 function initSystemStatus() {
     if (navigator.getBattery) {
         navigator.getBattery().then(function(battery) {
@@ -485,61 +629,6 @@ function initSystemStatus() {
     window.addEventListener('offline', () => document.getElementById('live-status').innerText = 'অফলাইন');
 }
 
-// গেস্টবুক ডাটা প্রসেসিং লজিক (LocalStorage ভিত্তিক)
-function loadComments() {
-    const container = document.getElementById('comments-container');
-    container.innerHTML = '';
-    
-    // ডিফল্ট ডেমো কমেন্ট যদি কোনো কমেন্ট সেভ করা না থাকে
-    let comments = JSON.parse(localStorage.getItem('cyber_portfolio_comments')) || [
-        { name: "শুভাকাঙ্ক্ষী", msg: "আপনার ওয়েবসাইটের নিওন ডার্ক থিমটি জাস্ট অসাধারণ হয়েছে ভাই! 🔥", time: "২২ মে, ২০২৬" }
-    ];
-    
-    comments.forEach(c => {
-        const commentDiv = document.createElement('div');
-        commentDiv.className = 'comment-item';
-        commentDiv.innerHTML = `
-            <div class="comment-header">
-                <span class="comment-user">${c.name}</span>
-                <span class="comment-time">${c.time}</span>
-            </div>
-            <div class="comment-body">${c.msg}</div>
-        `;
-        container.appendChild(commentDiv);
-    });
-}
-
-function submitComment(event) {
-    event.preventDefault();
-    playSound('click');
-    
-    const nameInput = document.getElementById('guest-name');
-    const msgInput = document.getElementById('guest-msg');
-    
-    const newComment = {
-        name: nameInput.value,
-        msg: msgInput.value,
-        time: new Date().toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' })
-    };
-    
-    let comments = JSON.parse(localStorage.getItem('cyber_portfolio_comments')) || [
-        { name: "শুভাকাঙ্ক্ষী", msg: "আপনার ওয়েবসাইটের নিওন ডার্ক থিমটি জাস্ট অসাধারণ হয়েছে ভাই! 🔥", time: "২২ মে, ২০২৬" }
-    ];
-    
-    comments.unshift(newComment); // নতুন কমেন্ট সবার ওপরে থাকবে
-    localStorage.setItem('cyber_portfolio_comments', JSON.stringify(comments));
-    
-    nameInput.value = '';
-    msgInput.value = '';
-    
-    loadComments();
-    
-    /* ভবিষ্যতে ফায়ারবেস বা ডাটাবেজ এড করতে চাইলে কোডটি এমন হবে:
-    database.ref('comments').push(newComment);
-    */
-}
-
-// পেজ লোড হওয়ার পর এক্সিকিউশন
 window.onload = () => {
     const savedTheme = localStorage.getItem('userSavedTheme') || 'laser-red';
     setTheme(savedTheme);
@@ -548,15 +637,12 @@ window.onload = () => {
     animateBlood();
     updateVisitors();
     initSystemStatus();
-    loadComments(); // কমেন্ট লোড করার কল
     
-    // ২. প্রতি ৪ সেকেন্ড পর পর হালকা সাউন্ডসহ অটো গ্লিচ ট্রিগার (ইউজার ইন্টারঅ্যাকশনের পর কার্যকর হবে)
     setInterval(() => {
         if(!isMuted && audioCtx && audioCtx.state !== 'suspended') playSound('glitch');
     }, 4000);
 };
 
-// অটোমেটিক সঠিক টাইম টেবিল সেটআপ
 const hour = new Date().getHours();
 const greetingEl = document.getElementById('dynamic-greeting');
 if(hour >= 5 && hour < 12) greetingEl.innerText = "সকাল! ☀️";
@@ -567,7 +653,6 @@ else greetingEl.innerText = "রাত! 🌙";
 function openImage(){ document.getElementById('imageOverlay').style.display='flex'; }
 function closeImage(){ document.getElementById('imageOverlay').style.display='none'; }
 
-// ১২ ঘণ্টার ক্লক ফরম্যাট লজিক
 function updateClock(){
     const now = new Date();
     let hours = now.getHours();
