@@ -51,7 +51,7 @@ body{
 
 .container{ width:100%; max-width:850px; position: relative; }
 
-/* ৩. ফুচারিস্টিক কন্ট্রোল প্যানেল (টগল সুইচ) */
+/* फुचारिस्टिक कंट्रोल पनेब */
 .theme-switch-wrapper { 
     position: absolute; top: 0; right: 0; z-index: 10; 
     display: flex; gap: 8px;
@@ -77,7 +77,7 @@ body{
 }
 .name-info { flex: 1; }
 
-/* ২. সাইবারপাঙ্ক অটো-গ্লিচ এফেক্ট */
+/* ऑटो-ग्लिच एफेक्ट */
 .glitch-text {
     font-size:26px; display: inline-block; position: relative; cursor: pointer;
     animation: autoGlitch 4s infinite;
@@ -90,7 +90,7 @@ body{
 
 .subtitle{ color: var(--text-secondary); font-size:14px; }
 
-/* ঘড়ির باکس */
+/* ঘড়ির বক্স */
 .clock-box{ 
     display: inline-flex; align-items: center; gap: 10px; 
     background: var(--card-bg); padding: 6px 14px; border-radius: 12px; 
@@ -100,7 +100,7 @@ body{
 #digital-clock{ color: var(--accent); font-weight:bold; letter-spacing:1px; font-size: 14px; }
 #day-name { font-size: 12px; color: var(--text-secondary); border-left: 1px solid var(--text-secondary); padding-left: 10px; }
 
-/* CARD & ১. লাইভ নিয়ন গ্লোয়িং বর্ডার পালস */
+/* CARD & नियॉन ग्लो पल्स */
 .card{ 
     background: var(--card-bg); width:100%; padding:24px; border-radius:24px; 
     margin-top:20px; box-shadow:0 10px 25px var(--shadow); 
@@ -139,11 +139,12 @@ body{
     border-radius: 3px; width: 0%; transition: width 2s ease-in-out;
 }
 
-/* SYSTEM STATUS WIDGET */
-.status-grid { display: flex; gap: 20px; margin-top: 10px; font-size: 14px; }
-.status-item-live { background: rgba(0,0,0,0.2); padding: 8px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); flex: 1; }
+/* SYSTEM STATUS EXTENDED WIDGET */
+.status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; font-size: 13px; }
+.status-item-live { background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+.status-item-live i { margin-right: 5px; color: var(--accent); }
 
-/* SOCIAL GRID */
+/* SOCIAL GRID & LOCK EFFECT */
 .social-grid { display: flex; justify-content: space-between; gap: 5px; margin-top: 20px; }
 .social-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; flex: 1; }
 .icon-circle {
@@ -153,15 +154,19 @@ body{
 }
 .social-item span { color: var(--text-secondary); font-size: 11px; }
 
-/* GUESTBOOK CSS */
+/* লক করা কন্টেন্ট ইফেক্ট */
+.locked-content {
+    filter: blur(4px); pointer-events: none; opacity: 0.25; transition: 0.5s;
+}
+
+/* গেস্টবুক ও ইনপুট */
 .guestbook-input {
     width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--accent); 
     padding: 12px; border-radius: 10px; color: #fff; font-family: inherit; 
     margin-bottom: 10px; outline: none; font-size: 14px;
 }
-.guestbook-input:focus {
-    box-shadow: 0 0 10px var(--shadow);
-}
+.guestbook-input:focus { box-shadow: 0 0 10px var(--shadow); }
+
 #comments-container {
     margin-top: 15px; max-height: 320px; overflow-y: auto; 
     display: flex; flex-direction: column; gap: 12px; padding-right: 5px;
@@ -180,7 +185,6 @@ body{
 .comment-time { color: var(--text-secondary); opacity: 0.6; }
 .comment-body { font-size: 13px; color: var(--text-primary); line-height: 1.4; word-break: break-word; }
 
-/* অ্যাডমিন রিপ্লাই স্টাইল বক্স */
 .admin-reply-box {
     background: rgba(255, 0, 60, 0.04); border-left: 2px dashed var(--accent);
     margin-top: 8px; padding: 6px 10px; border-radius: 0 8px 8px 0;
@@ -188,25 +192,35 @@ body{
 .reply-title { font-size: 11px; color: var(--accent); font-weight: bold; margin-bottom: 2px; }
 .reply-text { font-size: 12.5px; color: var(--text-primary); }
 
-/* অ্যাকশন বাটন এরিয়া (Reply & Delete এর জন্য) */
-.admin-actions {
-    display: flex; gap: 10px; margin-top: 6px;
-}
+.admin-actions { display: flex; gap: 10px; margin-top: 6px; }
 .secret-btn {
     background: transparent; border: 1px solid var(--accent); color: var(--accent);
     padding: 2px 8px; font-size: 11px; border-radius: 4px; cursor: pointer;
-    display: none; /* ডিফল্ট হাইড */
+    display: none;
 }
 .secret-btn:hover { background: var(--accent); color: #000; }
 .secret-delete-btn { border-color: #ef4444; color: #ef4444; }
 .secret-delete-btn:hover { background: #ef4444; color: #fff; }
 
-/* VISITOR COUNTER */
-.visitor-box {
-    text-align: center; margin-top: 30px; padding: 15px;
-    border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; color: var(--text-secondary);
+/* সিক্রেট এডমিন প্যানেল টেবিল */
+#admin-number-panel {
+    display: none; background: rgba(0, 0, 0, 0.9); border: 2px dashed #00ff41; 
+    padding: 20px; border-radius: 20px; margin-top: 20px; box-shadow: 0 0 20px rgba(0,255,65,0.4);
 }
-.v-number { background: var(--accent); color: #000; padding: 2px 8px; border-radius: 5px; font-weight: bold; }
+.admin-table {
+    width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; text-align: left;
+}
+.admin-table th, .admin-table td {
+    padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.admin-table th { color: #00ff41; font-weight: bold; }
+
+/* FOOTER MINIMAL */
+.footer-minimal {
+    text-align: center; margin-top: 35px; padding: 20px 10px;
+    border-top: 1px solid rgba(255,255,255,0.05); font-size: 11px; color: var(--text-secondary);
+    opacity: 0.6; letter-spacing: 0.5px;
+}
 
 .overlay{ position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:1000; }
 .overlay img{ max-width:85%; border-radius:15px; border:2px solid var(--accent); }
@@ -218,7 +232,8 @@ body{
     font-weight:bold; margin-top:15px; font-size:20px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
+    .status-grid { grid-template-columns: 1fr; gap: 8px; }
     .header-section { gap: 12px; }
     .profile-img { width: 85px; height: 85px; }
     .glitch-text { font-size: 22px; }
@@ -238,7 +253,7 @@ body{
     </div>
 
     <div class="header-section">
-        <div onclick="openImage()"><img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="P" class="profile-img"></div>
+        <div onclick="openImage()"><img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="Profile" class="profile-img"></div>
         <div class="name-info">
             <p id="dynamic-greeting" style="color: var(--accent); font-weight: bold; font-size: 13px; margin-bottom: 2px;"></p>
             <h1 class="glitch-text" onclick="playSound('glitch')">মোঃ আব্দুল বাকি মিয়া</h1>
@@ -254,8 +269,10 @@ body{
     <div class="card" style="margin-top: 20px; border-style: dashed;" onclick="playSound('click')">
         <h2 style="font-size: 16px;">SYSTEM STATUS <i class="fas fa-terminal" style="color:var(--accent);"></i></h2>
         <div class="status-grid">
-            <div class="status-item-live"><i class="fas fa-battery-three-quarters" style="color:var(--accent);"></i> ব্যাটারি: <span id="live-battery">১০০%</span></div>
-            <div class="status-item-live"><i class="fas fa-wifi" style="color:var(--accent);"></i> নেটওয়ার্ক: <span id="live-status">অনলাইন</span></div>
+            <div class="status-item-live"><i class="fas fa-battery-three-quarters"></i> ব্যাটারি: <span id="live-battery">লোডিং...</span></div>
+            <div class="status-item-live"><i class="fas fa-wifi"></i> নেটওয়ার্ক: <span id="live-status">অনলাইন</span></div>
+            <div class="status-item-live"><i class="fas fa-laptop-code"></i> ডিভাইস/ওএস: <span id="live-os" style="color: #00ff41; font-weight: bold;">Detecting...</span></div>
+            <div class="status-item-live"><i class="fas fa-bolt"></i> ডাটাবেজ পিং: <span id="live-ping" style="color: #22c55e;">Testing...</span></div>
         </div>
     </div>
 
@@ -263,6 +280,36 @@ body{
         <p style="font-size:28px; font-weight:bold; color:var(--accent);">ঈদ মোবারক! 🌙</p>
         <div style="font-size:35px; margin:10px 0;">🐪 🐃</div>
         <p style="color:var(--accent); font-size:14px;">পবিত্র ঈদুল আযহার অগ্রিম শুভেচ্ছা! ✨</p>
+    </div>
+
+    <div class="card" id="unlock-control-box" style="border: 2px solid gold;">
+        <h2 style="color: gold;"><i class="fas fa-key"></i> লিঙ্ক ও অফলাইন তথ্য আনলকার</h2>
+        <p style="font-size: 12.5px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4;">
+            আমার ব্যক্তিগত সোশ্যাল মিডিয়া লিঙ্ক ও ফোন নাম্বারের বাটনগুলো লক করা আছে। আনলক করতে নিচের নিয়ম অনুসরণ করুন:
+        </p>
+        
+        <div id="step-number-area" style="margin-top: 15px;">
+            <p style="font-size: 12px; margin-bottom: 5px; color: #fff;">১. এখানে আপনার সচল মোবাইল নাম্বারটি দিন:</p>
+            <input type="tel" id="visitor-phone" class="guestbook-input" placeholder="উদা: 017XXXXXXXX" maxlength="11">
+            <button class="cyber-btn" onclick="generateUnlockCode()" style="width: 100%; justify-content: center; padding: 10px; border-color: gold; color: gold;">
+                <i class="fas fa-unlock-alt"></i> গোপন কোড সংগ্রহ করুন
+            </button>
+        </div>
+
+        <div id="step-code-area" style="margin-top: 15px; display: none;">
+            <div style="background: rgba(255,215,0,0.1); padding: 10px; border-radius: 8px; border: 1px dashed gold; margin-bottom: 10px; font-size: 13px; text-align: center;">
+                🎉 সফল হয়েছে! আপনার গোপন আনলক কোডটি হলো: <b style="color: #fff; font-size: 16px; letter-spacing: 1px;">VISIT2026</b>
+            </div>
+            <p style="font-size: 12px; margin-bottom: 5px; color: #fff;">২. উপরের কোডটি এখানে বসিয়ে দিন:</p>
+            <input type="text" id="unlock-code-input" class="guestbook-input" placeholder="কোডটি এখানে লিখুন...">
+            <button class="cyber-btn" onclick="verifyUnlockCode()" style="width: 100%; justify-content: center; padding: 10px; background: gold; color: #000;">
+                আনলক নিশ্চিত করুন
+            </button>
+        </div>
+        
+        <div id="unlock-success-msg" style="display: none; color: #22c55e; text-align: center; font-weight: bold; font-size: 14px; margin-top: 10px;">
+            <i class="fas fa-check-circle"></i> অভিনন্দন! সকল লিংক ও তথ্য সফলভাবে আনলক হয়েছে।
+        </div>
     </div>
 
     <div class="card" onclick="playSound('click')">
@@ -307,7 +354,7 @@ body{
         — Quran সূরা: আনফাল — আয়াত: ৩০</p>
     </div>
 
-    <div class="card">
+    <div id="lock-target-1" class="card locked-content">
         <h2 style="text-align:center;">যোগাযোগ করুন 🤝</h2>
         <div class="social-grid">
             <a href="https://www.facebook.com/Abdulbaki231" target="_blank" class="social-item" onclick="playSound('click')">
@@ -329,7 +376,7 @@ body{
         </div>
     </div>
 
-    <div class="card" onclick="playSound('click')">
+    <div id="lock-target-2" class="card locked-content">
         <h2>অফলাইন যোগাযোগ <i class="fas fa-phone-alt" style="color:#22c55e;"></i></h2>
         <a href="tel:01575586681" class="call-button"><i class="fas fa-phone-volume"></i> 01575586681</a>
     </div>
@@ -354,14 +401,31 @@ body{
         <div class="note-box">⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷</div>
     </div>
 
-    <div class="visitor-box">
-        <i class="fas fa-users"></i> প্রোফাইল ভিজিটর: <span class="v-number" id="visitor-count">১২さと</span>
-        <p style="font-size: 10px; margin-top: 10px; opacity: 0.6;">© ২০২৬ মোঃ আব্দুল বাকি মিয়া</p>
+    <div id="admin-number-panel">
+        <h2 style="color: #00ff41; font-size: 16px;"><i class="fas fa-user-secret"></i> 🔒 ভিজিটর মোবাইল নাম্বার লিস্ট (Admin Only)</h2>
+        <p style="font-size: 11px; color: #86efac;">কারা আপনার ব্যক্তিগত তথ্য আনলক করেছে তাদের তালিকা নিচে লাইভ দেখা যাচ্ছে:</p>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>মোবাইল নম্বর</th>
+                    <th>তারিখ ও সময়</th>
+                </tr>
+            </thead>
+            <tbody id="admin-number-rows">
+                <tr>
+                    <td colspan="2" style="text-align: center; color: #aaa;">কোনো তথ্য লোড হয়নি</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer-minimal">
+        <p>© ২০২৬ মোঃ আব্দুল বাকি মিয়া • অল রাইটস রিজার্ভড।</p>
     </div>
 </div>
 
 <div class="overlay" id="imageOverlay" onclick="closeImage()">
-    <img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="F">
+    <img src="VIP_Temp_File_image_repair_1776952696308.jpg" alt="Fullscreen Image">
 </div>
 
 <script>
@@ -381,30 +445,124 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// 🤫 আপনার জন্য গোপন এডমিন কোড। নাম বক্সে এটি লিখলেই কেবল Reply ও Delete বাটন ভেসে উঠবে।
+// সিক্রেট কোড সেটিংস
 const ADMIN_CODE = "baki123"; 
+const VISITOR_UNLOCK_CODE = "VISIT2026";
 let currentTypedName = "";
 
-// ইনপুট বক্স ট্র্যাক করা (রিয়েলটাইম বাটন শো/হাইড করার জন্য)
+// ইনপুট বক্স ট্র্যাক করা (রিয়েলটাইম এডমিন প্যানেল শো/হাইড করার জন্য)
 document.getElementById('guest-name').addEventListener('input', (e) => {
     currentTypedName = e.target.value.trim();
     renderLiveComments(); 
+    toggleAdminFeatures();
 });
+
+function toggleAdminFeatures() {
+    const adminPanel = document.getElementById('admin-number-panel');
+    if (currentTypedName === ADMIN_CODE) {
+        adminPanel.style.display = 'block';
+        unlockAllContentDirectly();
+    } else {
+        adminPanel.style.display = 'none';
+    }
+}
+
+// ভিজিটরের কোড তৈরি ও নাম্বার ফায়ারবেসে পাঠানোর লজিক
+function generateUnlockCode() {
+    playSound('click');
+    const phoneInput = document.getElementById('visitor-phone');
+    const phone = phoneInput.value.trim();
+    
+    if (phone.length < 11 || isNaN(phone)) {
+        alert("দয়া করে আপনার ১১ ডিজিটের সঠিক মোবাইল নাম্বারটি লিখুন!");
+        return;
+    }
+    
+    const now = new Date();
+    const timeString = now.toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' }) + " | " + now.toLocaleTimeString('bn-BD');
+    
+    database.ref('unlocked_numbers').push({
+        phone: phone,
+        time: timeString
+    })
+    .then(() => {
+        document.getElementById('step-number-area').style.display = 'none';
+        document.getElementById('step-code-area').style.display = 'block';
+    })
+    .catch(() => {
+        alert("দুঃখিত, ডাটাবেজ ত্রুটি! আবার চেষ্টা করুন।");
+    });
+}
+
+// ভিজিটরের কোড যাচাই লজিক
+function verifyUnlockCode() {
+    playSound('theme');
+    const codeInput = document.getElementById('unlock-code-input').value.trim();
+    
+    if (codeInput === VISITOR_UNLOCK_CODE || codeInput === ADMIN_CODE) {
+        document.getElementById('lock-target-1').classList.remove('locked-content');
+        document.getElementById('lock-target-2').classList.remove('locked-content');
+        document.getElementById('lock-target-1').style.filter = "none";
+        document.getElementById('lock-target-2').style.filter = "none";
+        document.getElementById('lock-target-1').style.pointerEvents = "auto";
+        document.getElementById('lock-target-2').style.pointerEvents = "auto";
+        document.getElementById('lock-target-1').style.opacity = "1";
+        document.getElementById('lock-target-2').style.opacity = "1";
+        
+        document.getElementById('step-code-area').style.display = 'none';
+        document.getElementById('unlock-success-msg').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('unlock-control-box').style.display = 'none';
+        }, 3000);
+    } else {
+        alert("ভুল কোড! দয়া করে সঠিক কোডটি দিন।");
+    }
+}
+
+function unlockAllContentDirectly() {
+    document.getElementById('lock-target-1').classList.remove('locked-content');
+    document.getElementById('lock-target-2').classList.remove('locked-content');
+    document.getElementById('lock-target-1').style.filter = "none";
+    document.getElementById('lock-target-2').style.filter = "none";
+    document.getElementById('lock-target-1').style.pointerEvents = "auto";
+    document.getElementById('lock-target-2').style.pointerEvents = "auto";
+    document.getElementById('lock-target-1').style.opacity = "1";
+    document.getElementById('lock-target-2').style.opacity = "1";
+    document.getElementById('unlock-control-box').style.display = "none";
+}
 
 let firebaseCommentsCache = {};
 
-// ফায়ারবেস থেকে রিয়েলটাইম লাইভ ডাটা লোড
 database.ref('comments').on('value', (snapshot) => {
     firebaseCommentsCache = snapshot.val() || {};
     renderLiveComments();
 });
 
-// লাইভ কমেন্ট, এডমিন রিপ্লাই ও ডিলিট বাটন রেন্ডার করার মেইন ফাংশন
+database.ref('unlocked_numbers').on('value', (snapshot) => {
+    const data = snapshot.val() || {};
+    const tableBody = document.getElementById('admin-number-rows');
+    tableBody.innerHTML = '';
+    
+    const keys = Object.keys(data).reverse();
+    if (keys.length > 0) {
+        keys.forEach(key => {
+            const item = data[key];
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td style="color: #fff; font-weight: bold; letter-spacing: 0.5px;">${escapeHtml(item.phone)}</td>
+                <td style="color: #aaa;">${item.time}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    } else {
+        tableBody.innerHTML = `<tr><td colspan="2" style="text-align: center; color: #666;">এখনো কেউ সাইট আনলক করেনি।</td></tr>`;
+    }
+});
+
 function renderLiveComments() {
     const container = document.getElementById('comments-container');
     container.innerHTML = '';
-    
-    const keys = Object.keys(firebaseCommentsCache).reverse(); // নতুন কমেন্ট ওপরে দেখাবে
+    const keys = Object.keys(firebaseCommentsCache).reverse();
     
     if (keys.length > 0) {
         keys.forEach(key => {
@@ -420,7 +578,6 @@ function renderLiveComments() {
                 <div class="comment-body">${escapeHtml(c.msg)}</div>
             `;
 
-            // যদি এই কমেন্টে অলরেডি কোনো এডমিন রিপ্লাই সেভ করা থাকে
             if (c.reply) {
                 htmlBlock += `
                     <div class="admin-reply-box">
@@ -430,7 +587,6 @@ function renderLiveComments() {
                 `;
             }
 
-            // 🔒 এডমিন কন্ডিশন: নাম বক্সে কোডটি লিখলেই শুধু বাটন দুটি ডিসপ্লে ব্লক (সচল) হবে
             const btnStyle = (currentTypedName === ADMIN_CODE) ? 'style="display: block;"' : 'style="display: none;"';
             
             htmlBlock += `
@@ -448,11 +604,9 @@ function renderLiveComments() {
     }
 }
 
-// নতুন কমেন্ট পুশ লজিক
 function submitComment(event) {
     event.preventDefault();
     playSound('click');
-    
     const nameInput = document.getElementById('guest-name');
     const msgInput = document.getElementById('guest-msg');
     
@@ -472,38 +626,27 @@ function submitComment(event) {
             nameInput.value = '';
             msgInput.value = '';
             currentTypedName = "";
+            toggleAdminFeatures();
         })
         .catch(() => {
             alert("কমেন্ট সেভ হতে সমস্যা হয়েছে।");
         });
 }
 
-// 👑 এডমিন রিপ্লাই লজিক
 function submitAdminReply(commentId) {
     const adminText = prompt("এই কমেন্টের উত্তর (Reply) লিখুন:");
     if (adminText && adminText.trim() !== "") {
-        database.ref('comments/' + commentId).update({
-            reply: adminText.trim()
-        })
-        .then(() => {
-            alert("রিপ্লাই পোস্ট সফল হয়েছে!");
-        })
-        .catch(() => {
-            alert("দুঃখিত, ত্রুটি হয়েছে।");
-        });
+        database.ref('comments/' + commentId).update({ reply: adminText.trim() })
+        .then(() => { alert("রিপ্লাই পোস্ট সফল হয়েছে!"); })
+        .catch(() => { alert("দুঃখিত, ত্রুটি হয়েছে।"); });
     }
 }
 
-// 👑 খারাপ কমেন্ট ডিলিট করার এডমিন ফাংশন
 function deleteComment(commentId) {
     if (confirm("আপনি কি নিশ্চিত যে এই কমেন্টটি চিরতরে ডিলিট করতে চান?")) {
         database.ref('comments/' + commentId).remove()
-            .then(() => {
-                alert("কমেন্টটি ডাটাবেজ থেকে সফলভাবে ডিলিট করা হয়েছে! 🗑");
-            })
-            .catch(() => {
-                alert("ডিলিট করতে সমস্যা হয়েছে।");
-            });
+            .then(() => { alert("কমেন্টটি ডাটাবেজ থেকে সফলভাবে ডিলিট করা হয়েছে! 🗑"); })
+            .catch(() => { alert("ডিলিট করতে সমস্যা হয়েছে।"); });
     }
 }
 
@@ -511,17 +654,53 @@ function escapeHtml(text) {
     return text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-// --- আপনার আগের বাকি সকল স্ক্রিপ্ট লজিক (অপরিবর্তিত) ---
+// 🌐 NEW FEATURE: REAL LIVE OS & BROWSER DETECTOR
+function detectOSAndBrowser() {
+    const ua = navigator.userAgent;
+    let os = "Unknown OS";
+    let browser = "Unknown Browser";
+
+    // Detect OS
+    if (ua.indexOf("Win") !== -1) os = "Windows";
+    else if (ua.indexOf("Mac") !== -1) os = "MacOS";
+    else if (ua.indexOf("X11") !== -1) os = "UNIX";
+    else if (ua.indexOf("Linux") !== -1) os = "Linux";
+    else if (/Android/.test(ua)) os = "Android";
+    else if (/iPhone|iPad|iPod/.test(ua)) os = "iOS";
+
+    // Detect Browser
+    if (ua.indexOf("Chrome") !== -1 && ua.indexOf("Safari") !== -1) browser = "Chrome";
+    else if (ua.indexOf("Safari") !== -1 && ua.indexOf("Chrome") === -1) browser = "Safari";
+    else if (ua.indexOf("Firefox") !== -1) browser = "Firefox";
+    else if (ua.indexOf("Edge") !== -1) browser = "Edge";
+    
+    document.getElementById('live-os').innerText = `${os} / ${browser}`;
+}
+
+// ⚡ NEW FEATURE: REAL-TIME FIREBASE DATABASE PING (LATENCY TESTER)
+function calculateLivePing() {
+    const pingEl = document.getElementById('live-ping');
+    setInterval(() => {
+        const startTime = Date.now();
+        // ফায়ারবেসের একটি ছোট নোডে রিড করে রেসপন্স টাইম দেখা
+        database.ref('.info/connected').once('value').then(() => {
+            const latency = Date.now() - startTime;
+            pingEl.innerText = `Nominal (${latency}ms)`;
+            pingEl.style.color = latency < 150 ? '#00ff41' : 'gold';
+        }).catch(() => {
+            pingEl.innerText = "Offline/Timeout";
+            pingEl.style.color = "#ff003c";
+        });
+    }, 5000); // প্রতি ৫ সেকেন্ড পর পর লাইভ টেস্ট করবে
+}
+
+// --- অডিও এবং অন্যান্য কোর ফাংশন ---
 let audioCtx = null;
 let isMuted = false;
 
 function initAudioContext() {
-    if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-    }
+    if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    if (audioCtx.state === 'suspended') { audioCtx.resume(); }
 }
 
 document.addEventListener('click', initAudioContext, { once: true });
@@ -556,27 +735,21 @@ function playSound(type) {
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
             oscillator.start(); oscillator.stop(audioCtx.currentTime + 0.05);
         }
-    } catch(e) { console.log('Audio error handled safely.'); }
+    } catch(e) { console.log('Audio error handled.'); }
 }
 
 function toggleMute() {
     isMuted = !isMuted;
     const icon = document.getElementById('mute-btn').querySelector('i');
-    if(isMuted) {
-        icon.className = "fas fa-volume-mute";
-    } else {
-        icon.className = "fas fa-volume-up";
-        playSound('click');
-    }
+    if(isMuted) { icon.className = "fas fa-volume-mute"; } 
+    else { icon.className = "fas fa-volume-up"; playSound('click'); }
 }
 
 function setTheme(themeName) {
     document.documentElement.setAttribute('data-theme', themeName);
     localStorage.setItem('userSavedTheme', themeName);
     const label = document.getElementById('theme-label');
-    if(label) {
-        label.innerText = themeName === 'cyber-matrix' ? 'LASER ON' : 'MATRIX ON';
-    }
+    if(label) { label.innerText = themeName === 'cyber-matrix' ? 'LASER ON' : 'MATRIX ON'; }
 }
 
 function toggleTheme() {
@@ -614,55 +787,34 @@ function typeIntro() {
 }
 
 function animateBlood() {
-    let current = 0;
-    const target = 4;
+    let current = 0; const target = 4;
     const el = document.getElementById('blood-count');
-    const timer = setInterval(() => {
-        if(current < target) {
-            current++;
-            el.innerText = current;
-        } else clearInterval(timer);
-    }, 400);
-}
-
-function updateVisitors() {
-    const el = document.getElementById('visitor-count');
-    let count = 1250; 
-    setInterval(() => {
-        count += Math.floor(Math.random() * 2);
-        el.innerText = count;
-    }, 7000);
+    if(el) {
+        const timer = setInterval(() => {
+            if(current < target) { current++; el.innerText = current; } 
+            else clearInterval(timer);
+        }, 400);
+    }
 }
 
 function initSystemStatus() {
     if (navigator.getBattery) {
         navigator.getBattery().then(function(battery) {
-            function updateBatteryInfo() {
-                document.getElementById('live-battery').innerText = Math.round(battery.level * 100) + '%';
-            }
-            updateBatteryInfo();
-            battery.addEventListener('levelchange', updateBatteryInfo);
+            function updateBatteryInfo() { document.getElementById('live-battery').innerText = Math.round(battery.level * 100) + '%'; }
+            updateBatteryInfo(); battery.addEventListener('levelchange', updateBatteryInfo);
         });
-    } else {
-        document.getElementById('live-battery').innerText = 'সক্রিয় ✔';
-    }
+    } else { document.getElementById('live-battery').innerText = 'সক্রিয় ✔'; }
 
     window.addEventListener('online', () => document.getElementById('live-status').innerText = 'অনলাইন');
-    window.addEventListener('offline', () => document.getElementById('live-status').innerText = 'অফলাইন');
+    window.addEventListener('offline', () => document.getElementById('live-status').innerText = 'অфলাইন');
 }
 
 window.onload = () => {
     const savedTheme = localStorage.getItem('userSavedTheme') || 'laser-red';
     setTheme(savedTheme);
-    
-    typeIntro();
-    animateBlood();
-    updateVisitors();
-    initSystemStatus();
-    
-    setInterval(() => {
-        if(!isMuted && audioCtx && audioCtx.state !== 'suspended') playSound('glitch');
-    }, 4000);
+    typeIntro(); animateBlood(); initSystemStatus();
+    detectOSAndBrowser(); calculateLivePing();
+    setInterval(() => { if(!isMuted && audioCtx && audioCtx.state !== 'suspended') playSound('glitch'); }, 4000);
 };
 
 const hour = new Date().getHours();
@@ -676,16 +828,8 @@ function openImage(){ document.getElementById('imageOverlay').style.display='fle
 function closeImage(){ document.getElementById('imageOverlay').style.display='none'; }
 
 function updateClock(){
-    const now = new Date();
-    let hours = now.getHours();
-    let minutes = String(now.getMinutes()).padStart(2, '0');
-    let seconds = String(now.getSeconds()).padStart(2, '0');
-    
-    let ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; 
-    let h = String(hours).padStart(2, '0');
-    
+    const now = new Date(); let hours = now.getHours(); let minutes = String(now.getMinutes()).padStart(2, '0'); let seconds = String(now.getSeconds()).padStart(2, '0');
+    let ampm = hours >= 12 ? 'PM' : 'AM'; hours = hours % 12; hours = hours ? hours : 12; let h = String(hours).padStart(2, '0');
     const days = ["রবিবার","সোমবার","মঙ্গলবার","বুধবার","বৃহস্পতিবার","শুক্রবার","শনিবার"];
     document.getElementById("digital-clock").innerHTML = `${h}:${minutes}:${seconds} ${ampm}`;
     document.getElementById("day-name").innerHTML = days[now.getDay()];
