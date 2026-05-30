@@ -6,11 +6,12 @@
 <title>মোঃ আব্দুল বাকি মিয়া - প্রোফাইল</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+<!-- Firebase SDK Libraries -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <style>
-/* --- থিম ভেরিয়েবলস (ডিফল্ট: লেজার রেড) --- */
+/* --- থিম ভেরিয়েবলস --- */
 :root {
     --bg-color: #110000;
     --card-bg: rgba(40, 10, 10, 0.7);
@@ -22,7 +23,6 @@
     --glitch-color: #00ffff;
 }
 
-/* থিম: সাইবার ম্যাট্রিক্স (Cyber Matrix) */
 [data-theme="cyber-matrix"] {
     --bg-color: #001100;
     --card-bg: rgba(0, 30, 0, 0.7);
@@ -51,7 +51,7 @@ body{
 
 .container{ width:100%; max-width:850px; position: relative; }
 
-/* फुचारिस्टिक कंट्रोल पनेब */
+/* কন্ট্রোল প্যানেল */
 .theme-switch-wrapper { 
     position: absolute; top: 0; right: 0; z-index: 10; 
     display: flex; gap: 8px;
@@ -77,7 +77,6 @@ body{
 }
 .name-info { flex: 1; }
 
-/* ऑटो-ग्लिच एफेक्ट */
 .glitch-text {
     font-size:26px; display: inline-block; position: relative; cursor: pointer;
     animation: autoGlitch 4s infinite;
@@ -100,7 +99,7 @@ body{
 #digital-clock{ color: var(--accent); font-weight:bold; letter-spacing:1px; font-size: 14px; }
 #day-name { font-size: 12px; color: var(--text-secondary); border-left: 1px solid var(--text-secondary); padding-left: 10px; }
 
-/* CARD & नियॉन ग्लो पल्स */
+/* CARD & নিয়ॉन গ্লো পলস */
 .card{ 
     background: var(--card-bg); width:100%; padding:24px; border-radius:24px; 
     margin-top:20px; box-shadow:0 10px 25px var(--shadow); 
@@ -110,10 +109,6 @@ body{
 @keyframes neonPulseAlways {
     0%, 100% { box-shadow: 0 10px 25px var(--shadow), 0 0 4px rgba(255,0,60,0.2); }
     50% { box-shadow: 0 10px 25px var(--shadow), 0 0 12px var(--shadow); border-color: #fff; }
-}
-.card:hover, .card:active { 
-    border-color: var(--accent);
-    box-shadow: 0 0 20px var(--accent);
 }
 
 /* TYPING EFFECT */
@@ -129,15 +124,21 @@ body{
 .heart-icon { animation: beat 1s infinite; font-size: 38px; display: inline-block; }
 @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-/* BATTERY */
+/* BATTERY & PROGRESS */
 .battery-container {
-    width: 100%; height: 20px; background: #334155; border-radius: 6px; 
-    border: 2px solid var(--accent); padding: 2px; margin-top: 10px;
+    width: 100%; height: 18px; background: #221111; border-radius: 6px; 
+    border: 1px solid var(--accent); padding: 2px; margin-top: 6px;
 }
 .battery-level {
     height: 100%; background: linear-gradient(90deg, var(--accent), #22c55e);
     border-radius: 3px; width: 0%; transition: width 2s ease-in-out;
 }
+
+/* 💻 NEW: TERMINAL TASK STYLING */
+.terminal-task-list { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.task-item { background: rgba(0,0,0,0.2); padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); }
+.task-meta { display: flex; justify-content: space-between; font-size: 12px; font-family: monospace; color: var(--text-secondary); }
+.task-status { color: var(--accent); font-weight: bold; }
 
 /* SYSTEM STATUS EXTENDED WIDGET */
 .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; font-size: 13px; }
@@ -146,7 +147,7 @@ body{
 
 /* SOCIAL GRID & LOCK EFFECT */
 .social-grid { display: flex; justify-content: space-between; gap: 5px; margin-top: 20px; }
-.social-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; flex: 1; }
+.social-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; flex: 1; cursor: pointer; }
 .icon-circle {
     width: 55px; height: 55px; border-radius: 16px; background: rgba(255,255,255,0.05);
     display: flex; align-items: center; justify-content: center; font-size: 24px;
@@ -179,7 +180,6 @@ body{
     border-left: 3px solid var(--accent); animation: fadeIn 0.4s ease;
     display: flex; flex-direction: column; gap: 4px;
 }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 .comment-header { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 2px; }
 .comment-user { font-weight: bold; color: var(--accent); }
 .comment-time { color: var(--text-secondary); opacity: 0.6; }
@@ -229,7 +229,36 @@ body{
     display:flex; justify-content:center; align-items:center; gap:12px;
     background: linear-gradient(90deg, #06b6d4, #22c55e);
     color:white; text-decoration:none; padding:16px; border-radius:16px;
-    font-weight:bold; margin-top:15px; font-size:20px;
+    font-weight:bold; margin-top:15px; font-size:20px; cursor: pointer;
+}
+
+/* 🌀 CYBERPUNK LINK LOADING OVERLAY STYLE */
+.link-loading-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #050000; z-index: 9999; display: none;
+    flex-direction: column; justify-content: center; align-items: center;
+    font-family: monospace; padding: 20px;
+}
+.loading-box {
+    width: 100%; max-width: 400px; background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--accent); border-radius: 10px; padding: 25px;
+    box-shadow: 0 0 20px var(--shadow); text-align: center;
+}
+.loading-title {
+    color: var(--accent); font-size: 15px; font-weight: bold;
+    margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase;
+}
+.bar-container {
+    width: 100%; height: 12px; background: #221111; 
+    border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
+    position: relative; margin-bottom: 10px;
+}
+.bar-progress {
+    width: 0%; height: 100%; background: var(--accent);
+    box-shadow: 0 0 10px var(--accent); transition: width 0.1s linear;
+}
+.loading-status {
+    font-size: 11px; color: var(--text-secondary); opacity: 0.8;
 }
 
 @media (max-width: 600px) {
@@ -241,6 +270,17 @@ body{
 </style>
 </head>
 <body>
+
+<!-- 🌀 HIGH-TECH LINK LOADING SCREEN PANEL -->
+<div class="link-loading-overlay" id="link-loader">
+    <div class="loading-box">
+        <div class="loading-title"><i class="fas fa-network-wired"></i> SECURING CONNECTION...</div>
+        <div class="bar-container">
+            <div class="bar-progress" id="link-progress-bar"></div>
+        </div>
+        <div class="loading-status" id="link-status-text">REDIRECTING TO PROTOCOL [0%]</div>
+    </div>
+</div>
 
 <div class="container" id="main-container">
     <div class="theme-switch-wrapper">
@@ -266,6 +306,7 @@ body{
         </div>
     </div>
 
+    <!-- ⚡ SYSTEM STATUS WIDGET -->
     <div class="card" style="margin-top: 20px; border-style: dashed;" onclick="playSound('click')">
         <h2 style="font-size: 16px;">SYSTEM STATUS <i class="fas fa-terminal" style="color:var(--accent);"></i></h2>
         <div class="status-grid">
@@ -276,12 +317,35 @@ body{
         </div>
     </div>
 
-    <div class="card" style="border:1px dashed var(--accent); text-align:center;" onclick="playSound('click')">
-        <p style="font-size:28px; font-weight:bold; color:var(--accent);">ঈদ মোবারক! 🌙</p>
-        <div style="font-size:35px; margin:10px 0;">🐪 🐃</div>
-        <p style="color:var(--accent); font-size:14px;">পবিত্র ঈদুল আযহার অগ্রিম শুভেচ্ছা! ✨</p>
+    <!-- 💻 NEW SECTION: LIVE TASK TERMINAL (Replaced Eid Section) -->
+    <div class="card" onclick="playSound('click')">
+        <h2>LIVE TERMINAL TASKS <i class="fas fa-tasks" style="color:var(--accent);"></i></h2>
+        <div class="terminal-task-list">
+            
+            <div class="task-item">
+                <div class="task-meta">
+                    <span>⚡ PROJECT: Personal Portfolio Web Optimization</span>
+                    <span class="task-status">RUNNING</span>
+                </div>
+                <div class="battery-container">
+                    <div class="battery-level" style="width: 85%; background: linear-gradient(90deg, var(--accent), gold);"></div>
+                </div>
+            </div>
+
+            <div class="task-item">
+                <div class="task-meta">
+                    <span>📚 STUDY: Electrical Systems & Advanced Wiring Design</span>
+                    <span class="task-status" style="color:#22c55e;">CONTINUOUS</span>
+                </div>
+                <div class="battery-container">
+                    <div class="battery-level" style="width: 70%; background: linear-gradient(90deg, var(--accent), #22c55e);"></div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
+    <!-- 🔑 লিঙ্ক ও অফলাইন তথ্য আনলকার কন্ট্রোল বক্স -->
     <div class="card" id="unlock-control-box" style="border: 2px solid gold;">
         <h2 style="color: gold;"><i class="fas fa-key"></i> লিঙ্ক ও অফলাইন তথ্য আনলকার</h2>
         <p style="font-size: 12.5px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4;">
@@ -354,33 +418,36 @@ body{
         — Quran সূরা: আনফাল — আয়াত: ৩০</p>
     </div>
 
+    <!-- 🔒 লকযোগ্য কন্টেন্ট এরিয়া ১ -->
     <div id="lock-target-1" class="card locked-content">
         <h2 style="text-align:center;">যোগাযোগ করুন 🤝</h2>
         <div class="social-grid">
-            <a href="https://www.facebook.com/Abdulbaki231" target="_blank" class="social-item" onclick="playSound('click')">
+            <div onclick="cyberRedirect('https://www.facebook.com/Abdulbaki231')" class="social-item">
                 <div class="icon-circle" style="color:#1877F2;"><i class="fab fa-facebook"></i></div>
                 <span>Facebook</span>
-            </a>
-            <a href="https://wa.me/8801575586681" target="_blank" class="social-item" onclick="playSound('click')">
+            </div>
+            <div onclick="cyberRedirect('https://wa.me/8801575586681')" class="social-item">
                 <div class="icon-circle" style="color:#25D366;"><i class="fab fa-whatsapp"></i></div>
                 <span>WhatsApp</span>
-            </a>
-            <a href="https://www.instagram.com/abdul_baki_6.5" target="_blank" class="social-item" onclick="playSound('click')">
+            </div>
+            <div onclick="cyberRedirect('https://www.instagram.com/abdul_baki_6.5')" class="social-item">
                 <div class="icon-circle" style="color:#E4405F;"><i class="fab fa-instagram"></i></div>
                 <span>Instagram</span>
-            </a>
-            <a href="https://t.me/Abdul23104" target="_blank" class="social-item" onclick="playSound('click')">
+            </div>
+            <div onclick="cyberRedirect('https://t.me/Abdul23104')" class="social-item">
                 <div class="icon-circle" style="color:#0088cc;"><i class="fab fa-telegram"></i></div>
                 <span>Telegram</span>
-            </a>
+            </div>
         </div>
     </div>
 
+    <!-- 🔒 লকযোগ্য কন্টেন্ট এরিয়া ২ -->
     <div id="lock-target-2" class="card locked-content">
         <h2>অফলাইন যোগাযোগ <i class="fas fa-phone-alt" style="color:#22c55e;"></i></h2>
-        <a href="tel:01575586681" class="call-button"><i class="fas fa-phone-volume"></i> 01575586681</a>
+        <div onclick="cyberRedirect('tel:01575586681')" class="call-button"><i class="fas fa-phone-volume"></i> 01575586681</div>
     </div>
 
+    <!-- গেস্টবুক এরিয়া -->
     <div class="card" onclick="playSound('click')">
         <h2>ಗೆস্টবুক / লাইভ কমেন্ট <i class="fas fa-comments" style="color:var(--accent);"></i></h2>
         <form id="guestbook-form" onsubmit="submitComment(event)" style="margin-top: 15px;">
@@ -401,6 +468,7 @@ body{
         <div class="note-box">⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷</div>
     </div>
 
+    <!-- 👑 গোপন এডমিন নাম্বার ট্র্যাকিং প্যানেল -->
     <div id="admin-number-panel">
         <h2 style="color: #00ff41; font-size: 16px;"><i class="fas fa-user-secret"></i> 🔒 ভিজিটর মোবাইল নাম্বার লিস্ট (Admin Only)</h2>
         <p style="font-size: 11px; color: #86efac;">কারা আপনার ব্যক্তিগত তথ্য আনলক করেছে তাদের তালিকা নিচে লাইভ দেখা যাচ্ছে:</p>
@@ -441,16 +509,13 @@ const firebaseConfig = {
   measurementId: "G-K3LX28PNBF"
 };
 
-// ফায়ারবেস ইনিশিয়ালাইজ করা
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// সিক্রেট কোড সেটিংস
 const ADMIN_CODE = "baki123"; 
 const VISITOR_UNLOCK_CODE = "VISIT2026";
 let currentTypedName = "";
 
-// ইনপুট বক্স ট্র্যাক করা (রিয়েলটাইম এডমিন প্যানেল শো/হাইড করার জন্য)
 document.getElementById('guest-name').addEventListener('input', (e) => {
     currentTypedName = e.target.value.trim();
     renderLiveComments(); 
@@ -467,7 +532,6 @@ function toggleAdminFeatures() {
     }
 }
 
-// ভিজিটরের কোড তৈরি ও নাম্বার ফায়ারবেসে পাঠানোর লজিক
 function generateUnlockCode() {
     playSound('click');
     const phoneInput = document.getElementById('visitor-phone');
@@ -494,21 +558,12 @@ function generateUnlockCode() {
     });
 }
 
-// ভিজিটরের কোড যাচাই লজিক
 function verifyUnlockCode() {
     playSound('theme');
     const codeInput = document.getElementById('unlock-code-input').value.trim();
     
     if (codeInput === VISITOR_UNLOCK_CODE || codeInput === ADMIN_CODE) {
-        document.getElementById('lock-target-1').classList.remove('locked-content');
-        document.getElementById('lock-target-2').classList.remove('locked-content');
-        document.getElementById('lock-target-1').style.filter = "none";
-        document.getElementById('lock-target-2').style.filter = "none";
-        document.getElementById('lock-target-1').style.pointerEvents = "auto";
-        document.getElementById('lock-target-2').style.pointerEvents = "auto";
-        document.getElementById('lock-target-1').style.opacity = "1";
-        document.getElementById('lock-target-2').style.opacity = "1";
-        
+        unlockAllContentDirectly();
         document.getElementById('step-code-area').style.display = 'none';
         document.getElementById('unlock-success-msg').style.display = 'block';
         setTimeout(() => {
@@ -528,7 +583,6 @@ function unlockAllContentDirectly() {
     document.getElementById('lock-target-2').style.pointerEvents = "auto";
     document.getElementById('lock-target-1').style.opacity = "1";
     document.getElementById('lock-target-2').style.opacity = "1";
-    document.getElementById('unlock-control-box').style.display = "none";
 }
 
 let firebaseCommentsCache = {};
@@ -654,13 +708,12 @@ function escapeHtml(text) {
     return text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-// 🌐 NEW FEATURE: REAL LIVE OS & BROWSER DETECTOR
+// 🌐 REAL LIVE OS & BROWSER DETECTOR
 function detectOSAndBrowser() {
     const ua = navigator.userAgent;
     let os = "Unknown OS";
     let browser = "Unknown Browser";
 
-    // Detect OS
     if (ua.indexOf("Win") !== -1) os = "Windows";
     else if (ua.indexOf("Mac") !== -1) os = "MacOS";
     else if (ua.indexOf("X11") !== -1) os = "UNIX";
@@ -668,7 +721,6 @@ function detectOSAndBrowser() {
     else if (/Android/.test(ua)) os = "Android";
     else if (/iPhone|iPad|iPod/.test(ua)) os = "iOS";
 
-    // Detect Browser
     if (ua.indexOf("Chrome") !== -1 && ua.indexOf("Safari") !== -1) browser = "Chrome";
     else if (ua.indexOf("Safari") !== -1 && ua.indexOf("Chrome") === -1) browser = "Safari";
     else if (ua.indexOf("Firefox") !== -1) browser = "Firefox";
@@ -677,12 +729,11 @@ function detectOSAndBrowser() {
     document.getElementById('live-os').innerText = `${os} / ${browser}`;
 }
 
-// ⚡ NEW FEATURE: REAL-TIME FIREBASE DATABASE PING (LATENCY TESTER)
+// ⚡ REAL-TIME FIREBASE DATABASE PING
 function calculateLivePing() {
     const pingEl = document.getElementById('live-ping');
     setInterval(() => {
         const startTime = Date.now();
-        // ফায়ারবেসের একটি ছোট নোডে রিড করে রেসপন্স টাইম দেখা
         database.ref('.info/connected').once('value').then(() => {
             const latency = Date.now() - startTime;
             pingEl.innerText = `Nominal (${latency}ms)`;
@@ -691,7 +742,37 @@ function calculateLivePing() {
             pingEl.innerText = "Offline/Timeout";
             pingEl.style.color = "#ff003c";
         });
-    }, 5000); // প্রতি ৫ সেকেন্ড পর পর লাইভ টেস্ট করবে
+    }, 5000);
+}
+
+// 🌀 HIGH TECH ANIMATED REDIRECT COUNTER
+function cyberRedirect(url) {
+    playSound('theme');
+    const loader = document.getElementById('link-loader');
+    const progressBar = document.getElementById('link-progress-bar');
+    const statusText = document.getElementById('link-status-text');
+    
+    loader.style.display = 'flex';
+    progressBar.style.width = '0%';
+    
+    let percent = 0;
+    const interval = setInterval(() => {
+        percent += 5;
+        progressBar.style.width = percent + '%';
+        statusText.innerText = `REDIRECTING TO SECURE NODE [${percent}%]`;
+        
+        if (percent % 20 === 0) {
+            playSound('glitch');
+        }
+        
+        if (percent >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+                loader.style.display = 'none';
+                window.open(url, '_blank');
+            }, 150);
+        }
+    }, 80);
 }
 
 // --- অডিও এবং অন্যান্য কোর ফাংশন ---
@@ -806,7 +887,7 @@ function initSystemStatus() {
     } else { document.getElementById('live-battery').innerText = 'সক্রিয় ✔'; }
 
     window.addEventListener('online', () => document.getElementById('live-status').innerText = 'অনলাইন');
-    window.addEventListener('offline', () => document.getElementById('live-status').innerText = 'অфলাইন');
+    window.addEventListener('offline', () => document.getElementById('live-status').innerText = 'অফলাইন');
 }
 
 window.onload = () => {
