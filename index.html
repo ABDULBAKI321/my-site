@@ -43,11 +43,6 @@ body{
 
 .container{ width:100%; max-width:850px; position: relative; }
 
-/* কন্ট্রোল প্যানেল */
-.theme-switch-wrapper { 
-    position: absolute; top: 0; right: 0; z-index: 10; 
-    display: flex; gap: 8px;
-}
 .cyber-btn {
     background: rgba(0, 0, 0, 0.6); color: var(--accent);
     border: 1px solid var(--accent); padding: 8px 14px;
@@ -60,20 +55,10 @@ body{
     box-shadow: 0 0 15px var(--accent);
 }
 
-/* ওয়ালপেপার বাটনের থাম্বনেইল */
-.btn-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 4px;
-    object-fit: cover;
-    border: 1px solid var(--accent);
-}
-
 /* HEADER */
-.header-section{ display:flex; align-items:center; justify-content: space-between; gap:18px; margin-top:50px; }
+.header-section{ display:flex; align-items:center; justify-content: space-between; gap:18px; margin-top:20px; }
 .profile-area { display: flex; align-items: center; gap: 18px; flex: 1; }
 
-/* প্রোফাইল পিকচার চার কোণায় রাউন্ড */
 .profile-img{ 
     width:100px; height:100px; border-radius:16px; object-fit:cover; 
     border:3px solid var(--accent); box-shadow:0 0 15px var(--accent); 
@@ -91,7 +76,7 @@ body{
     88% { transform: translate(2px, -1px); text-shadow: 2px 2px var(--accent), -2px -2px var(--glitch-color); }
 }
 
-/* সময় ও বারের জন্য ডান পাশের বক্স */
+/* সময় ও বারের বক্স */
 .clock-box{ 
     display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
     background: var(--card-bg); padding: 10px 16px; border-radius: 12px; 
@@ -126,21 +111,6 @@ body{
 .counter-number { font-size: 40px; font-weight: bold; color: #ef4444; }
 .heart-icon { animation: beat 1s infinite; font-size: 38px; display: inline-block; }
 @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-
-/* BATTERY & PROGRESS */
-.battery-container {
-    width: 100%; height: 18px; background: #221111; border-radius: 6px; 
-    border: 1px solid var(--accent); padding: 2px; margin-top: 6px;
-}
-.battery-level {
-    height: 100%; background: linear-gradient(90deg, var(--accent), #22c55e);
-    border-radius: 3px; width: 0%; transition: width 2s ease-in-out;
-}
-
-/* SYSTEM STATUS EXTENDED WIDGET */
-.status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; font-size: 13px; }
-.status-item-live { background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
-.status-item-live i { margin-right: 5px; color: var(--accent); }
 
 /* SOCIAL GRID & LOCK EFFECT */
 .social-grid { display: flex; justify-content: space-between; gap: 5px; margin-top: 20px; }
@@ -259,7 +229,6 @@ body{
 }
 
 @media (max-width: 600px) {
-    .status-grid { grid-template-columns: 1fr; gap: 8px; }
     .header-section { flex-direction: row; gap: 12px; align-items: center; }
     .profile-img { width: 85px; height: 85px; }
     .glitch-text { font-size: 22px; }
@@ -279,15 +248,6 @@ body{
 </div>
 
 <div class="container" id="main-container">
-    <div class="theme-switch-wrapper">
-        <button class="cyber-btn">
-            <i class="fas fa-power-off"></i> <span id="theme-label">MATRIX ON</span>
-        </button>
-        <button class="cyber-btn" id="wallpaperBtn">
-            <img id="btnPreview" src="3210.jpg" alt="Preview" class="btn-thumb">
-            <span>ওয়ালপেপার বদলান</span>
-        </button>
-    </div>
 
     <div class="header-section">
         <div class="profile-area">
@@ -301,16 +261,6 @@ body{
         <div class="clock-box">
             <div id="digital-clock">12:00:00 AM</div>
             <div id="day-name">শনিবার</div>
-        </div>
-    </div>
-
-    <div class="card" style="margin-top: 20px; border-style: dashed;">
-        <h2 style="font-size: 16px;">SYSTEM STATUS <i class="fas fa-terminal" style="color:var(--accent);"></i></h2>
-        <div class="status-grid">
-            <div class="status-item-live"><i class="fas fa-battery-three-quarters"></i> ব্যাটারি: <span id="live-battery">লোডিং...</span></div>
-            <div class="status-item-live"><i class="fas fa-wifi"></i> নেটওয়ার্ক: <span id="live-status">অনলাইন</span></div>
-            <div class="status-item-live"><i class="fas fa-laptop-code"></i> ডিভাইস/ওএস: <span id="live-os" style="color: #00ff41; font-weight: bold;">Detecting...</span></div>
-            <div class="status-item-live"><i class="fas fa-bolt"></i> ডাটাবেজ পিং: <span id="live-ping" style="color: #22c55e;">Testing...</span></div>
         </div>
     </div>
 
@@ -344,7 +294,7 @@ body{
 
     <div class="card">
         <h2>নোট 📝</h2>
-        <div class="note-box" style="margin-bottom:8px;">⭐ আপডেট চলমান.. 😊</div>
+        <div class="note-box" style="margin-bottom:8px;">⭐ আপডেট (NO) .. 😊</div>
         <div class="note-box">⭐ মৃত্যু ব্যতীত সবকিছু মিথ্যে মাই ফ্রেন্ড৷</div>
     </div>
 
@@ -655,41 +605,6 @@ function escapeHtml(text) {
     return text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-function detectOSAndBrowser() {
-    const ua = navigator.userAgent;
-    let os = "Unknown OS";
-    let browser = "Unknown Browser";
-
-    if (ua.indexOf("Win") !== -1) os = "Windows";
-    else if (ua.indexOf("Mac") !== -1) os = "MacOS";
-    else if (ua.indexOf("X11") !== -1) os = "UNIX";
-    else if (ua.indexOf("Linux") !== -1) os = "Linux";
-    else if (/Android/.test(ua)) os = "Android";
-    else if (/iPhone|iPad|iPod/.test(ua)) os = "iOS";
-
-    if (ua.indexOf("Chrome") !== -1 && ua.indexOf("Safari") !== -1) browser = "Chrome";
-    else if (ua.indexOf("Safari") !== -1 && ua.indexOf("Chrome") === -1) browser = "Safari";
-    else if (ua.indexOf("Firefox") !== -1) browser = "Firefox";
-    else if (ua.indexOf("Edge") !== -1) browser = "Edge";
-    
-    document.getElementById('live-os').innerText = `${os} / ${browser}`;
-}
-
-function calculateLivePing() {
-    const pingEl = document.getElementById('live-ping');
-    setInterval(() => {
-        const startTime = Date.now();
-        database.ref('.info/connected').once('value').then(() => {
-            const latency = Date.now() - startTime;
-            pingEl.innerText = `Nominal (${latency}ms)`;
-            pingEl.style.color = latency < 150 ? '#00ff41' : 'gold';
-        }).catch(() => {
-            pingEl.innerText = "Offline/Timeout";
-            pingEl.style.color = "#ff003c";
-        });
-    }, 5000);
-}
-
 function cyberRedirect(url) {
     const loader = document.getElementById('link-loader');
     const progressBar = document.getElementById('link-progress-bar');
@@ -735,50 +650,21 @@ function animateBlood() {
     }
 }
 
-function initSystemStatus() {
-    if (navigator.getBattery) {
-        navigator.getBattery().then(function(battery) {
-            function updateBatteryInfo() { document.getElementById('live-battery').innerText = Math.round(battery.level * 100) + '%'; }
-            updateBatteryInfo(); battery.addEventListener('levelchange', updateBatteryInfo);
-        });
-    } else { document.getElementById('live-battery').innerText = 'সক্রিয় ✔'; }
-
-    window.addEventListener('online', () => document.getElementById('live-status').innerText = 'অনলাইন');
-    window.addEventListener('offline', () => document.getElementById('live-status').innerText = 'অফলাইন');
-}
-
-// --- নতুন ওয়ালপেপার লুপ কন্ট্রোল লজিক ---
-const wallpapers = ['3210.jpg', '3211.jpg', '3212.jpg'];
-let currentIdx = 0;
-
-const wallpaperBtn = document.getElementById('wallpaperBtn');
-const btnPreview = document.getElementById('btnPreview');
-
-wallpaperBtn.addEventListener('click', () => {
-    currentIdx = (currentIdx + 1) % wallpapers.length;
-    // ব্যাকগ্রাউন্ড পরিবর্তন
-    document.body.style.backgroundImage = `url('${wallpapers[currentIdx]}')`;
-    // বাটনের থাম্বনেইল প্রিভিউতে পরের ছবি লোড করবে
-    let nextIdx = (currentIdx + 1) % wallpapers.length;
-    btnPreview.src = wallpapers[nextIdx];
-});
-
 window.onload = () => {
-    typeIntro(); animateBlood(); initSystemStatus();
-    detectOSAndBrowser(); calculateLivePing();
+    typeIntro(); 
+    animateBlood();
 };
 
 function openImage(){ document.getElementById('imageOverlay').style.display='flex'; }
 function closeImage(){ document.getElementById('imageOverlay').style.display='none'; }
 
-// --- ১২ ঘণ্টার লাইভ ঘড়ি এবং "শুভ" ছাড়া অটোমেটিক গ্রিটিংস আপডেট ---
+// --- ১২ ঘণ্টার লাইভ ঘড়ি এবং অটোমেটিক গ্রিটিংস আপডেট ---
 function updateClockAndGreeting(){
     const now = new Date(); 
     let hours = now.getHours(); 
     let minutes = String(now.getMinutes()).padStart(2, '0'); 
     let seconds = String(now.getSeconds()).padStart(2, '0');
     
-    // ১২ ঘণ্টার ফরম্যাট (১২ টার পর ১ টা)
     let ampm = hours >= 12 ? 'PM' : 'AM'; 
     hours = hours % 12; 
     hours = hours ? hours : 12; 
@@ -788,7 +674,6 @@ function updateClockAndGreeting(){
     document.getElementById("digital-clock").innerHTML = `${h}:${minutes}:${seconds} ${ampm}`;
     document.getElementById("day-name").innerHTML = days[now.getDay()];
 
-    // নামের নিচের গ্রিটিংস (শুভ ছাড়া লাইভ আপডেট)
     const currentHour = now.getHours();
     const greetingEl = document.getElementById('dynamic-greeting');
     if(currentHour >= 5 && currentHour < 12) greetingEl.innerText = "সকাল! ☀️";
